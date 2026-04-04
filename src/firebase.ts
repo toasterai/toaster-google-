@@ -19,18 +19,34 @@ import {
 // 5. Enable Authentication > Sign-in method > Email/Password AND Google
 // ============================================================
 const firebaseConfig = {
-  apiKey: process.env.VITE_FIREBASE_API_KEY,
-  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.VITE_FIREBASE_APP_ID,
-  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID,
+  apiKey: process.env.VITE_FIREBASE_API_KEY || '',
+  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || '',
+  projectId: process.env.VITE_FIREBASE_PROJECT_ID || '',
+  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || '',
+  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
+  appId: process.env.VITE_FIREBASE_APP_ID || '',
+  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID || '',
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+const isConfigured = !!firebaseConfig.apiKey && !!firebaseConfig.projectId;
+
+let app: any = null;
+let auth: any = null;
+let googleProvider: any = null;
+
+if (isConfigured) {
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    googleProvider = new GoogleAuthProvider();
+  } catch (err) {
+    console.error('Firebase initialization failed:', err);
+  }
+} else {
+  console.warn('Firebase not configured. Auth features disabled.');
+}
+
+export { auth, googleProvider };
 
 // --- Auth Helper Functions ---
 
