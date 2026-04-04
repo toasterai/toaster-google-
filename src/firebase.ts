@@ -19,13 +19,13 @@ import {
 // 5. Enable Authentication > Sign-in method > Email/Password AND Google
 // ============================================================
 const firebaseConfig = {
-  apiKey: "AIzaSyDELhKUVd59FX1lctWBcvQzDmc1zj7dW10",
-  authDomain: "toasterai-b9c65.firebaseapp.com",
-  projectId: "toasterai-b9c65",
-  storageBucket: "toasterai-b9c65.firebasestorage.app",
-  messagingSenderId: "1068248009964",
-  appId: "1:1068248009964:web:19f223ebe7b654c40ba9c9",
-  measurementId: "G-GPXEXJFT46"
+  apiKey: process.env.VITE_FIREBASE_API_KEY,
+  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.VITE_FIREBASE_APP_ID,
+  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
