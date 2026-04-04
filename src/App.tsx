@@ -5,12 +5,8 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import { 
-  BrainCircuit, 
-  ChevronRight, 
-  Command, 
-  Hexagon, 
-  Box, 
-  Triangle, 
+  BrainCircuit,
+  ChevronRight,
   CheckCircle2, 
   ArrowRight, 
   BarChart3, 
@@ -1225,17 +1221,6 @@ export default function App() {
       </section>
 
       {/* Trust Signals */}
-      <section className="py-12 border-y border-slate-100 bg-slate-50/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-8">Used by 1,000+ professionals at</p>
-          <div className="flex flex-wrap justify-center items-center gap-12 md:gap-24 opacity-40 grayscale">
-            <div className="flex items-center gap-2"><Command className="w-6 h-6" /><span className="font-bold text-xl">Command</span></div>
-            <div className="flex items-center gap-2"><Hexagon className="w-6 h-6" /><span className="font-bold text-xl">Hexagon</span></div>
-            <div className="flex items-center gap-2"><Box className="w-6 h-6" /><span className="font-bold text-xl">BoxCorp</span></div>
-            <div className="flex items-center gap-2"><Triangle className="w-6 h-6" /><span className="font-bold text-xl">Delta</span></div>
-          </div>
-        </div>
-      </section>
 
       {/* Why ToasterAI */}
       <section className="py-24">
