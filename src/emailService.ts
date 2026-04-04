@@ -19,6 +19,9 @@ const EMAILJS_SERVICE_ID = 'service_0stp0ej';
 const EMAILJS_TEMPLATE_ID = 'template_i52dzee';
 const EMAILJS_PUBLIC_KEY = 'oFpTa2Xusw6yTcQyB';
 
+// Initialize EmailJS with public key
+emailjs.init(EMAILJS_PUBLIC_KEY);
+
 interface ReportData {
   email: string;
   score: number;
@@ -57,8 +60,9 @@ export async function sendReport(data: ReportData): Promise<boolean> {
       EMAILJS_PUBLIC_KEY
     );
     return true;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Failed to send report email:', error);
+    console.error('EmailJS error details:', error?.text || error?.message || JSON.stringify(error));
     return false;
   }
 }
