@@ -24,7 +24,8 @@
       "mcp__Claude_Preview__preview_start",
       "Bash(kill %1)",
       "Bash(cmd.exe /c \"netstat -ano | findstr :5173\")",
-      "Bash(cmd.exe /c \"netstat -ano | findstr :4200\")"
+      "Bash(cmd.exe /c \"netstat -ano | findstr :4200\")",
+      "Bash(gh --version)"
     ]
   }
 }
