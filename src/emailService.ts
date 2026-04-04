@@ -15,9 +15,9 @@ import emailjs from '@emailjs/browser';
 //    - {{company_size}} - company size
 // 4. Copy your Service ID, Template ID, and Public Key below
 // ============================================================
-const EMAILJS_SERVICE_ID = 'REPLACE_WITH_SERVICE_ID';
-const EMAILJS_TEMPLATE_ID = 'REPLACE_WITH_TEMPLATE_ID';
-const EMAILJS_PUBLIC_KEY = 'REPLACE_WITH_PUBLIC_KEY';
+const EMAILJS_SERVICE_ID = 'service_0stp0ej';
+const EMAILJS_TEMPLATE_ID = 'template_i52dzee';
+const EMAILJS_PUBLIC_KEY = 'oFpTa2Xusw6yTcQyB';
 
 interface ReportData {
   email: string;
