@@ -1,21 +1,26 @@
 import React, { useState } from 'react';
-import { X, Lock, Loader2, Check, AlertTriangle } from 'lucide-react';
+import { X, Lock, Loader2, Check, ShoppingCart } from 'lucide-react';
 import { useModal } from '../hooks/useModal';
+import { usePaddle } from '../hooks/usePaddle';
 
 export default function CheckoutModal({ course, onClose }) {
   const [status, setStatus] = useState('idle'); // 'idle' | 'processing' | 'success'
   const { modalRef, handleBackdropClick } = useModal(true, status === 'idle' ? onClose : () => {});
+  const { openCheckout } = usePaddle();
 
   if (!course) return null;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleEnroll = () => {
     setStatus('processing');
-    // Simulate enrollment (no real payment processing)
-    setTimeout(() => {
-      setStatus('success');
-      setTimeout(() => onClose(), 3500);
-    }, 2000);
+    openCheckout(course.id, {
+      onSuccess: () => {
+        setStatus('success');
+        setTimeout(() => onClose(), 3500);
+      },
+      onClose: () => {
+        setStatus('idle');
+      },
+    });
   };
 
   return (
@@ -41,46 +46,39 @@ export default function CheckoutModal({ course, onClose }) {
 
         <div className="p-6">
           {status === 'idle' && (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Demo notice - SECURITY: No real card data is collected */}
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 flex items-start gap-3">
-                <AlertTriangle size={18} className="text-amber-600 flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-amber-800 font-medium">
-                  This is a demo. No real payment will be processed. Do not enter real card information.
-                </p>
-              </div>
-
-              <div className="flex justify-between items-center mb-6 pb-6 border-b border-slate-100">
+            <div className="space-y-6">
+              <div className="flex justify-between items-center pb-6 border-b border-slate-100">
                 <span className="text-slate-600">Total Due Today</span>
                 <span className="text-2xl font-black text-slate-900">${course.price} USD</span>
               </div>
 
-              <div>
-                <label htmlFor="checkout-email" className="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Email Address</label>
-                <input
-                  id="checkout-email"
-                  type="email"
-                  required
-                  placeholder="you@company.com"
-                  autoComplete="email"
-                  className="w-full border border-slate-300 rounded-lg p-3 text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-                />
-              </div>
+              <ul className="space-y-3">
+                {course.features.map((feature, idx) => (
+                  <li key={idx} className="flex items-start text-sm text-slate-700">
+                    <Check size={18} className="text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
 
-              <button type="submit" className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-4 rounded-lg mt-6 shadow flex justify-center items-center">
-                <Lock size={16} className="mr-2" /> Complete Enrollment (Demo)
+              <button
+                onClick={handleEnroll}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg shadow-lg flex justify-center items-center transition-colors"
+              >
+                <ShoppingCart size={18} className="mr-2" /> Proceed to Checkout
               </button>
-              <p className="text-center text-xs text-slate-400 mt-4">
-                Full payment integration coming soon.
+
+              <p className="text-center text-xs text-slate-400 flex items-center justify-center">
+                <Lock size={12} className="mr-1" /> Secure payment powered by Paddle
               </p>
-            </form>
+            </div>
           )}
 
           {status === 'processing' && (
             <div className="py-12 flex flex-col items-center justify-center text-center" role="status" aria-live="polite">
               <Loader2 size={48} className="text-blue-500 animate-spin mb-6" />
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Processing Enrollment...</h3>
-              <p className="text-slate-500">Please do not close this window.</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Opening Secure Checkout...</h3>
+              <p className="text-slate-500">You will be redirected to Paddle to complete payment.</p>
             </div>
           )}
 

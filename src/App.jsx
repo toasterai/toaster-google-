@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { BrainCircuit, BookOpen } from 'lucide-react';
 import { useScreenNavigation } from './hooks/useScreenNavigation';
+import { usePaddle } from './hooks/usePaddle';
 import { generateAdaptiveQuestions } from './data/questions';
 import { COMPANY_SIZE_MULTIPLIERS } from './data/courses';
 
@@ -12,6 +13,9 @@ import CatalogScreen from './screens/CatalogScreen';
 
 export default function App() {
   const { screen, navigateTo, mainRef } = useScreenNavigation('landing');
+  // Initialize Paddle SDK on app mount
+  usePaddle();
+
   const [profile, setProfile] = useState({ role: '', industry: '', companySize: '' });
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
