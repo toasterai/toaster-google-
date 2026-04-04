@@ -31,8 +31,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { auth, signUp, logIn, logOut, signInWithGoogle, onAuthStateChanged, type User } from './firebase';
-import { sendReport } from './emailService';
-import { collectData } from './dataCollection';
+import { collectData, sendReportViaAppsScript } from './dataCollection';
 
 // --- Types & Constants ---
 
@@ -1521,7 +1520,7 @@ export default function App() {
                 e.preventDefault();
                 const email = (e.target as HTMLFormElement).reportEmail.value;
                 setReportStatus('sending');
-                const success = await sendReport({
+                const success = await sendReportViaAppsScript({
                   email,
                   score: totalScore,
                   classification: classification.label,
@@ -1529,20 +1528,9 @@ export default function App() {
                   role: userData.role,
                   industry: userData.industry,
                   companySize: userData.companySize,
-                });
-                setReportStatus(success ? 'sent' : 'error');
-                // Also collect the email for data purposes
-                collectData({
-                  email,
-                  role: userData.role,
-                  industry: userData.industry,
-                  companySize: userData.companySize,
-                  score: totalScore,
-                  classification: classification.label,
-                  revenueLeak,
-                  source: 'report_request',
                   userId: user?.uid || '',
                 });
+                setReportStatus(success ? 'sent' : 'error');
                 setTimeout(() => setReportStatus('idle'), 4000);
               }} className="space-y-3">
                 <input

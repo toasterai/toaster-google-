@@ -1,34 +1,8 @@
 // ============================================================
-// SETUP: Google Sheets data collection via Google Apps Script
+// Google Apps Script handles BOTH data collection AND email sending.
 //
-// 1. Create a new Google Sheet
-// 2. Go to Extensions > Apps Script
-// 3. Paste this code in the script editor:
-//
-//    function doPost(e) {
-//      var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-//      var data = JSON.parse(e.postData.contents);
-//      sheet.appendRow([
-//        new Date(),
-//        data.email || '',
-//        data.role || '',
-//        data.industry || '',
-//        data.companySize || '',
-//        data.score || '',
-//        data.classification || '',
-//        data.revenueLeak || '',
-//        data.source || '',
-//        data.userId || ''
-//      ]);
-//      return ContentService
-//        .createTextOutput(JSON.stringify({ status: 'ok' }))
-//        .setMimeType(ContentService.MimeType.JSON);
-//    }
-//
-// 4. Click Deploy > New Deployment > Web App
-//    - Execute as: Me
-//    - Who has access: Anyone
-// 5. Copy the Web App URL and paste below
+// Update your Apps Script (Extensions > Apps Script) with the
+// code shown in APPS_SCRIPT_CODE.md, then redeploy.
 // ============================================================
 const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/a/macros/toasterai.org/s/AKfycbwSpLmqjYYe2Zjiq52NFreZuJVWAOv21u7qUSQyWiIA84XWJfLIqay7i5YhA6oR5KPTKA/exec';
 
@@ -42,10 +16,10 @@ interface CollectionData {
   revenueLeak?: number;
   source: string; // e.g., 'diagnostic_complete', 'report_request', 'enrollment'
   userId?: string;
+  sendEmail?: boolean; // If true, Apps Script will also send a report email
 }
 
 export async function collectData(data: CollectionData): Promise<boolean> {
-  // If webhook URL isn't configured yet, just log
   if (GOOGLE_SHEET_WEBHOOK_URL === 'REPLACE_WITH_GOOGLE_APPS_SCRIPT_URL') {
     console.log('[Data Collection] Not configured. Would have sent:', data);
     return true;
@@ -57,10 +31,29 @@ export async function collectData(data: CollectionData): Promise<boolean> {
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(data),
     });
-    console.log('[Data Collection] Response status:', response.status);
-    return true;
+    const result = await response.json();
+    console.log('[Data Collection] Response:', result);
+    return result?.status === 'ok';
   } catch (error) {
     console.error('Data collection failed:', error);
     return false;
   }
+}
+
+// Send report via Apps Script (collects data + sends email)
+export async function sendReportViaAppsScript(data: {
+  email: string;
+  score: number;
+  classification: string;
+  revenueLeak: number;
+  role: string;
+  industry: string;
+  companySize: string;
+  userId?: string;
+}): Promise<boolean> {
+  return collectData({
+    ...data,
+    source: 'report_request',
+    sendEmail: true,
+  });
 }
