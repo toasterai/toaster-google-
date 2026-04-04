@@ -19,12 +19,13 @@ import {
 // 5. Enable Authentication > Sign-in method > Email/Password AND Google
 // ============================================================
 const firebaseConfig = {
-  apiKey: "REPLACE_WITH_YOUR_API_KEY",
-  authDomain: "REPLACE_WITH_YOUR_AUTH_DOMAIN",
-  projectId: "REPLACE_WITH_YOUR_PROJECT_ID",
-  storageBucket: "REPLACE_WITH_YOUR_STORAGE_BUCKET",
-  messagingSenderId: "REPLACE_WITH_YOUR_MESSAGING_SENDER_ID",
-  appId: "REPLACE_WITH_YOUR_APP_ID"
+  apiKey: "AIzaSyDELhKUVd59FX1lctWBcvQzDmc1zj7dW10",
+  authDomain: "toasterai-b9c65.firebaseapp.com",
+  projectId: "toasterai-b9c65",
+  storageBucket: "toasterai-b9c65.firebasestorage.app",
+  messagingSenderId: "1068248009964",
+  appId: "1:1068248009964:web:19f223ebe7b654c40ba9c9",
+  measurementId: "G-GPXEXJFT46"
 };
 
 const app = initializeApp(firebaseConfig);
