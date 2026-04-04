@@ -52,12 +52,12 @@ export async function collectData(data: CollectionData): Promise<boolean> {
   }
 
   try {
-    await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
+    const response = await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
       method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(data),
     });
+    console.log('[Data Collection] Response status:', response.status);
     return true;
   } catch (error) {
     console.error('Data collection failed:', error);
