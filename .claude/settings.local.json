@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c//**)",
+      "Read(//c/Users/german_vega/AppData/Local/Programs/**)",
+      "Read(//c/Users/german_vega/**)",
+      "Bash(curl -L -o /tmp/node-installer.msi \"https://nodejs.org/dist/v22.14.0/node-v22.14.0-x64.msi\")",
+      "Bash(cmd.exe /c \"msiexec /i C:\\\\Users\\\\GERMAN~1\\\\AppData\\\\Local\\\\Temp\\\\node-installer.msi /qn /norestart\")",
+      "Bash(cmd.exe /c \"node --version && npm --version\")",
+      "Bash(cmd.exe /c \"msiexec /i \"\"C:\\\\Users\\\\GERMAN~1\\\\AppData\\\\Local\\\\Temp\\\\node-installer.msi\"\" /passive /norestart\")",
+      "Bash(cmd.exe /c \"dir \"\"C:\\\\Program Files\\\\nodejs\\\\node.exe\"\" 2>nul && echo FOUND || echo NOT_FOUND\")",
+      "Bash(cmd.exe /c \"echo %PATH%\")",
+      "Bash(cmd.exe /c \"dir \"\"C:\\\\Program Files\\\\nodejs\"\" /b\")",
+      "Bash(curl -L -o /tmp/node.zip \"https://nodejs.org/dist/v22.14.0/node-v22.14.0-win-x64.zip\")",
+      "Bash(mkdir -p ~/nodejs)",
+      "Bash(cd /tmp)",
+      "Bash(unzip -o node.zip -d ~/nodejs/)",
+      "Bash(export PATH=\"$HOME/nodejs/node-v22.14.0-win-x64:$PATH\")",
+      "Bash(npm --version)",
+      "Bash(npm create:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(npx vite:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(kill %1)",
+      "Bash(cmd.exe /c \"netstat -ano | findstr :5173\")",
+      "Bash(cmd.exe /c \"netstat -ano | findstr :4200\")"
+    ]
+  }
+}
