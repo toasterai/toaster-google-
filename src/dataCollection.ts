@@ -30,7 +30,7 @@
 //    - Who has access: Anyone
 // 5. Copy the Web App URL and paste below
 // ============================================================
-const GOOGLE_SHEET_WEBHOOK_URL = 'REPLACE_WITH_GOOGLE_APPS_SCRIPT_URL';
+const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/a/macros/toasterai.org/s/AKfycbwSpLmqjYYe2Zjiq52NFreZuJVWAOv21u7qUSQyWiIA84XWJfLIqay7i5YhA6oR5KPTKA/exec';
 
 interface CollectionData {
   email?: string;
