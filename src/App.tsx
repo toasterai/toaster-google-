@@ -45,255 +45,255 @@ const QUESTIONS = {
   core: [
     {
       id: 'core1',
-      text: "How much of your daily repetitive workflow is currently handled by AI agents or automation?",
+      text: "Last week, how many hours did your team spend on tasks that could have been handled by AI — data entry, report formatting, scheduling, or copy-paste workflows?",
       options: [
-        { text: "Less than 5% - Mostly manual", score: 1 },
-        { text: "5-20% - Some basic automations", score: 2 },
-        { text: "20-50% - Significant AI integration", score: 3 },
-        { text: "Over 50% - AI-first operations", score: 4 }
+        { text: "20+ hours — we're drowning in manual work", score: 1 },
+        { text: "10-20 hours — significant time lost to repetitive tasks", score: 2 },
+        { text: "5-10 hours — some tasks are automated but gaps remain", score: 3 },
+        { text: "Under 5 hours — most routine work runs on autopilot", score: 4 }
       ]
     },
     {
       id: 'core2',
-      text: "How integrated is your company data across different platforms for AI analysis?",
+      text: "When a key decision needs to be made, how long does it take to pull the right data from all your tools (CRM, analytics, finance, etc.)?",
       options: [
-        { text: "Siloed - Data lives in separate apps", score: 1 },
-        { text: "Partial - Some APIs connected", score: 2 },
-        { text: "Mostly - Centralized data warehouse", score: 3 },
-        { text: "Fully - Unified real-time data stream", score: 4 }
+        { text: "Hours or days — someone has to manually export and merge spreadsheets", score: 1 },
+        { text: "30-60 min — we can get it, but it requires multiple logins and tabs", score: 2 },
+        { text: "Under 30 min — most data feeds into a central dashboard", score: 3 },
+        { text: "Instant — all our data flows into one real-time source of truth", score: 4 }
       ]
     }
   ],
   role: {
     'CEO': [
       {
-        text: "How do you currently track AI-driven ROI across your entire organization?",
+        text: "If your board asked you today: 'What's the exact dollar ROI of our AI investments this quarter?' — could you answer confidently?",
         options: [
-          { text: "We don't track it specifically", score: 1 },
-          { text: "Qualitative feedback only", score: 2 },
-          { text: "Basic cost-saving metrics", score: 3 },
-          { text: "Advanced predictive ROI modeling", score: 4 }
+          { text: "No — we don't have any AI investments to measure yet", score: 1 },
+          { text: "Vaguely — we have anecdotal wins but no hard numbers", score: 2 },
+          { text: "Roughly — we track cost savings but not revenue impact", score: 3 },
+          { text: "Precisely — we have a live dashboard showing AI-driven ROI", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI into your long-term strategic business roadmap?",
+        text: "How confident are you that your competitors aren't already using AI to undercut your pricing, speed, or customer experience?",
         options: [
-          { text: "Not mentioned in strategy", score: 1 },
-          { text: "Mentioned as a future goal", score: 2 },
-          { text: "Core pillar of current strategy", score: 3 },
-          { text: "Strategy is built around AI-first principles", score: 4 }
+          { text: "Not at all — we haven't assessed the competitive AI landscape", score: 1 },
+          { text: "Somewhat worried — we've seen competitors launch AI features", score: 2 },
+          { text: "Cautiously confident — AI is in our 12-month roadmap", score: 3 },
+          { text: "Very confident — AI is already a core competitive advantage for us", score: 4 }
         ]
       },
       {
-        text: "How do you manage AI governance and ethical risk at the board level?",
+        text: "If a major AI-related compliance issue hit tomorrow (bias in hiring, data leak, hallucinated output to a client), how prepared is your organization?",
         options: [
-          { text: "No formal governance", score: 1 },
-          { text: "Ad-hoc discussions", score: 2 },
-          { text: "Established AI ethics committee", score: 3 },
-          { text: "Fully integrated AI risk framework", score: 4 }
+          { text: "Unprepared — we'd be scrambling to figure out who's responsible", score: 1 },
+          { text: "Ad-hoc — a few people would handle it, but no formal process exists", score: 2 },
+          { text: "Partially ready — we have guidelines but haven't stress-tested them", score: 3 },
+          { text: "Fully prepared — dedicated AI governance team with incident playbooks", score: 4 }
         ]
       }
     ],
     'Sales': [
       {
-        text: "What percentage of your lead qualification is automated using AI?",
+        text: "Out of every 100 inbound leads, how many does your team actually follow up with within the first hour?",
         options: [
-          { text: "0% - All manual outreach", score: 1 },
-          { text: "10-30% - Basic email sequences", score: 2 },
-          { text: "30-70% - AI-scored leads", score: 3 },
-          { text: "70%+ - Autonomous lead gen", score: 4 }
+          { text: "Under 10 — most leads sit for hours or days before first touch", score: 1 },
+          { text: "10-30 — we try, but reps are too busy with manual tasks", score: 2 },
+          { text: "30-60 — we have some automation but still miss warm leads", score: 3 },
+          { text: "80+ — AI instantly qualifies and routes every lead in real time", score: 4 }
         ]
       },
       {
-        text: "How do you handle personalized outreach at scale?",
+        text: "How much revenue do you estimate you lose each quarter because reps send generic outreach instead of hyper-personalized messages?",
         options: [
-          { text: "Generic templates only", score: 1 },
-          { text: "Manual personalization per lead", score: 2 },
-          { text: "AI-assisted drafting", score: 3 },
-          { text: "Fully autonomous hyper-personalization", score: 4 }
+          { text: "Significant — our reply rates are under 5% and we rely on volume", score: 1 },
+          { text: "Noticeable — reps personalize when they can, but it doesn't scale", score: 2 },
+          { text: "Moderate — AI helps draft messages, but reps still edit each one", score: 3 },
+          { text: "Minimal — every prospect gets a uniquely tailored sequence automatically", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI in your sales forecasting and pipeline management?",
+        text: "How often are your quarterly revenue forecasts off by more than 15%?",
         options: [
-          { text: "Manual estimates", score: 1 },
-          { text: "CRM-based linear projections", score: 2 },
-          { text: "AI-driven predictive forecasting", score: 3 },
-          { text: "Real-time autonomous pipeline optimization", score: 4 }
+          { text: "Almost always — forecasting feels like guessing", score: 1 },
+          { text: "Frequently — we rely on rep gut-feel and CRM snapshots", score: 2 },
+          { text: "Sometimes — AI assists but we still get surprised by slipped deals", score: 3 },
+          { text: "Rarely — predictive models flag at-risk deals weeks in advance", score: 4 }
         ]
       }
     ],
     'Operations': [
       {
-        text: "How often do you use AI to predict supply chain or process bottlenecks?",
+        text: "In the last quarter, how many times did an unexpected bottleneck or outage disrupt your operations that AI could have predicted?",
         options: [
-          { text: "Never - Reactive approach", score: 1 },
-          { text: "Rarely - Occasional audits", score: 2 },
-          { text: "Regularly - Monthly forecasting", score: 3 },
-          { text: "Constantly - Real-time AI monitoring", score: 4 }
+          { text: "5+ times — we're constantly firefighting surprises", score: 1 },
+          { text: "3-5 times — disruptions happen regularly despite manual checks", score: 2 },
+          { text: "1-2 times — we catch most issues but some still slip through", score: 3 },
+          { text: "Zero — AI flags potential issues before they become problems", score: 4 }
         ]
       },
       {
-        text: "What is the density of automated agents in your core operational processes?",
+        text: "How many FTEs (full-time equivalents) are currently dedicated to tasks that an AI agent could handle — dispatching, data routing, status updates, approvals?",
         options: [
-          { text: "Zero - All human-driven", score: 1 },
-          { text: "Low - Isolated task automation", score: 2 },
-          { text: "Medium - Integrated process flows", score: 3 },
-          { text: "High - End-to-end agentic orchestration", score: 4 }
+          { text: "5+ people — entire roles exist just to move information around", score: 1 },
+          { text: "3-5 people — several team members spend most of their day on coordination", score: 2 },
+          { text: "1-2 people — we've automated some flows but key bottlenecks remain", score: 3 },
+          { text: "Nearly zero — AI agents handle routing, approvals, and status updates", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for real-time resource allocation and scheduling?",
+        text: "When demand spikes unexpectedly (rush order, seasonal peak, staff shortage), how long does it take to reallocate resources?",
         options: [
-          { text: "Manual scheduling", score: 1 },
-          { text: "Software-assisted (static)", score: 2 },
-          { text: "AI-optimized dynamic scheduling", score: 3 },
-          { text: "Fully autonomous resource orchestration", score: 4 }
+          { text: "Days — manual rescheduling causes delays and overtime costs", score: 1 },
+          { text: "Several hours — managers scramble to reassign manually", score: 2 },
+          { text: "Under an hour — software helps but still needs human approval", score: 3 },
+          { text: "Minutes — AI dynamically reallocates resources in real time", score: 4 }
         ]
       }
     ],
     'Marketing': [
       {
-        text: "How personalized is your AI-driven content generation for different segments?",
+        text: "What percentage of your content (emails, ads, social posts) is still created from scratch by your team rather than generated or optimized by AI?",
         options: [
-          { text: "Generic - One size fits all", score: 1 },
-          { text: "Basic - Template-based personalization", score: 2 },
-          { text: "Advanced - Dynamic content blocks", score: 3 },
-          { text: "Hyper - Individualized 1:1 experiences", score: 4 }
+          { text: "90%+ — every piece is manually written and designed", score: 1 },
+          { text: "60-90% — we use templates but customization is manual", score: 2 },
+          { text: "30-60% — AI generates first drafts, humans refine", score: 3 },
+          { text: "Under 30% — AI handles creation, humans curate and approve", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for marketing attribution and spend optimization?",
+        text: "If you had to prove right now which specific ad, email, or touchpoint actually caused your last 10 conversions — could you?",
         options: [
-          { text: "Last-click attribution only", score: 1 },
-          { text: "Basic multi-touch models", score: 2 },
-          { text: "AI-driven predictive attribution", score: 3 },
-          { text: "Autonomous real-time budget reallocation", score: 4 }
+          { text: "No — we credit the last click and hope for the best", score: 1 },
+          { text: "Partially — we have multi-touch data but can't trust the models", score: 2 },
+          { text: "Mostly — AI attribution gives us directional confidence", score: 3 },
+          { text: "Yes — AI maps the full journey and reallocates budget autonomously", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI in your customer journey mapping and next-best-action logic?",
+        text: "How many potential customers drop off your funnel each month because they hit a generic experience instead of a personalized next step?",
         options: [
-          { text: "Static journey maps", score: 1 },
-          { text: "Trigger-based automation", score: 2 },
-          { text: "AI-driven behavioral triggers", score: 3 },
-          { text: "Real-time autonomous journey orchestration", score: 4 }
+          { text: "We don't know — we can't track individual journeys", score: 1 },
+          { text: "A lot — we see high drop-off but can only send batch emails", score: 2 },
+          { text: "Some — we trigger actions based on events but it's not real-time", score: 3 },
+          { text: "Very few — AI serves the right message at the right moment", score: 4 }
         ]
       }
     ],
     'HR': [
       {
-        text: "How much of your initial resume screening is performed by AI?",
+        text: "How many qualified candidates do you estimate your team misses each month because resumes pile up faster than humans can review them?",
         options: [
-          { text: "None - Manual review", score: 1 },
-          { text: "Keyword matching only", score: 2 },
-          { text: "AI-assisted ranking", score: 3 },
-          { text: "Fully autonomous screening", score: 4 }
+          { text: "Many — we know great candidates slip through the cracks", score: 1 },
+          { text: "Some — keyword filters catch obvious matches but miss nuance", score: 2 },
+          { text: "A few — AI ranks applicants but recruiters still review top 50+", score: 3 },
+          { text: "Almost none — AI surfaces the best fits instantly with high accuracy", score: 4 }
         ]
       },
       {
-        text: "How do you use AI to predict and prevent employee churn?",
+        text: "When was the last time a high-performer resigned and your team said 'we didn't see it coming'?",
         options: [
-          { text: "No predictive measures", score: 1 },
-          { text: "Exit interviews only", score: 2 },
-          { text: "Basic sentiment analysis", score: 3 },
-          { text: "Predictive behavioral modeling", score: 4 }
+          { text: "Recently — surprise departures are a recurring problem", score: 1 },
+          { text: "A few months ago — we only find out during exit interviews", score: 2 },
+          { text: "Rare — we run engagement surveys but can't predict individual risk", score: 3 },
+          { text: "Almost never — AI flags at-risk employees weeks before resignation", score: 4 }
         ]
       },
       {
-        text: "How automated is your internal employee support and knowledge management?",
+        text: "How many hours per week does your HR team spend answering the same employee questions — PTO balance, benefits, policy lookups?",
         options: [
-          { text: "Manual HR support", score: 1 },
-          { text: "Static FAQ/Wiki", score: 2 },
-          { text: "AI Chatbot for basic queries", score: 3 },
-          { text: "Autonomous AI HR Assistant", score: 4 }
+          { text: "10+ hours — HR is buried in repetitive tickets", score: 1 },
+          { text: "5-10 hours — we have a FAQ page but people still email HR", score: 2 },
+          { text: "2-5 hours — a chatbot handles basics but escalates too often", score: 3 },
+          { text: "Under 1 hour — AI resolves 90%+ of employee queries instantly", score: 4 }
         ]
       }
     ],
     'Finance': [
       {
-        text: "To what extent is AI used for your company's expense auditing and fraud detection?",
+        text: "In the past year, how much money did your company lose to expense fraud, duplicate payments, or billing errors that weren't caught in time?",
         options: [
-          { text: "Manual sampling only", score: 1 },
-          { text: "Rule-based software", score: 2 },
-          { text: "AI-assisted flagging", score: 3 },
-          { text: "Autonomous real-time auditing", score: 4 }
+          { text: "We don't know — we only audit a small random sample", score: 1 },
+          { text: "Some — rule-based checks catch obvious issues but miss subtle ones", score: 2 },
+          { text: "Minimal — AI flags anomalies but still needs human verification", score: 3 },
+          { text: "Near zero — AI audits every transaction in real time", score: 4 }
         ]
       },
       {
-        text: "How automated is your cash flow forecasting and financial modeling?",
+        text: "How confident is your CFO in next quarter's cash flow forecast — would they bet their bonus on it?",
         options: [
-          { text: "Manual spreadsheets", score: 1 },
-          { text: "Software with basic formulas", score: 2 },
-          { text: "AI-assisted forecasting", score: 3 },
-          { text: "Real-time autonomous modeling", score: 4 }
+          { text: "Not confident — we're updating spreadsheets manually every week", score: 1 },
+          { text: "Somewhat — our models are decent but miss macro shifts", score: 2 },
+          { text: "Fairly confident — AI-assisted forecasting reduces surprises", score: 3 },
+          { text: "Very confident — real-time AI models update continuously with live data", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for tax compliance and regulatory reporting?",
+        text: "How many person-hours does your team spend each month on tax prep, regulatory filings, and compliance checks?",
         options: [
-          { text: "Manual preparation", score: 1 },
-          { text: "Software-assisted filing", score: 2 },
-          { text: "AI-driven compliance checks", score: 3 },
-          { text: "Autonomous real-time reporting", score: 4 }
+          { text: "40+ hours — it's a manual, error-prone grind every cycle", score: 1 },
+          { text: "20-40 hours — software helps but prep and review are still manual", score: 2 },
+          { text: "10-20 hours — AI handles first-pass checks, humans verify", score: 3 },
+          { text: "Under 10 hours — AI automates filings and flags issues proactively", score: 4 }
         ]
       }
     ],
     'Engineering': [
       {
-        text: "What percentage of your codebase is generated or optimized by AI tools?",
+        text: "How many hours per week does your average developer spend writing boilerplate, documentation, or repetitive code that AI could generate?",
         options: [
-          { text: "0% - Traditional coding only", score: 1 },
-          { text: "1-10% - Basic autocomplete", score: 2 },
-          { text: "10-40% - Significant copilot usage", score: 3 },
-          { text: "40%+ - AI-driven architecture", score: 4 }
+          { text: "10+ hours — most coding is still fully manual", score: 1 },
+          { text: "5-10 hours — we use autocomplete but nothing more advanced", score: 2 },
+          { text: "2-5 hours — copilot tools handle scaffolding and docs", score: 3 },
+          { text: "Under 2 hours — AI generates code, tests, and docs; devs review", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI in your automated testing and QA pipelines?",
+        text: "When was the last time a bug reached production that automated AI testing could have caught?",
         options: [
-          { text: "Manual testing only", score: 1 },
-          { text: "Basic unit test scripts", score: 2 },
-          { text: "AI-generated test cases", score: 3 },
-          { text: "Self-healing autonomous QA", score: 4 }
+          { text: "This month — we rely on manual QA and things slip through often", score: 1 },
+          { text: "Last quarter — our test suite has gaps we know about but can't fill fast enough", score: 2 },
+          { text: "Rarely — AI helps generate test cases but coverage isn't complete", score: 3 },
+          { text: "Almost never — AI generates edge-case tests and self-heals flaky tests", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for system monitoring and incident response (AIOps)?",
+        text: "When your system has an incident at 2 AM, what happens in the first 15 minutes?",
         options: [
-          { text: "Manual alerts", score: 1 },
-          { text: "Threshold-based monitoring", score: 2 },
-          { text: "AI-driven anomaly detection", score: 3 },
-          { text: "Autonomous self-healing infrastructure", score: 4 }
+          { text: "Someone's phone rings and they start debugging from scratch", score: 1 },
+          { text: "PagerDuty fires, but the on-call engineer has to manually investigate", score: 2 },
+          { text: "AI detects the anomaly and provides a probable root cause for the engineer", score: 3 },
+          { text: "AI detects, diagnoses, and auto-remediates most incidents before humans wake up", score: 4 }
         ]
       }
     ],
     'Customer Success': [
       {
-        text: "How much of your Tier 1 support is handled by autonomous AI agents?",
+        text: "How many support tickets per day could be resolved instantly by AI but instead wait in a human queue?",
         options: [
-          { text: "None - Human-only support", score: 1 },
-          { text: "Basic Chatbots (Rule-based)", score: 2 },
-          { text: "AI-assisted human support", score: 3 },
-          { text: "Full AI resolution for Tier 1", score: 4 }
+          { text: "50+ — password resets, status checks, and FAQ questions all wait for a human", score: 1 },
+          { text: "20-50 — a basic chatbot deflects some, but most escalate immediately", score: 2 },
+          { text: "10-20 — AI handles simple queries well, but anything nuanced goes to a rep", score: 3 },
+          { text: "Under 10 — AI resolves 80%+ of Tier 1 tickets without human involvement", score: 4 }
         ]
       },
       {
-        text: "How do you use AI to identify and act on customer health signals?",
+        text: "How many customers churned last quarter that you only realized were at risk AFTER they cancelled?",
         options: [
-          { text: "Manual health checks", score: 1 },
-          { text: "Basic usage alerts", score: 2 },
-          { text: "AI-scored health metrics", score: 3 },
-          { text: "Predictive proactive intervention", score: 4 }
+          { text: "Many — churn feels like it comes out of nowhere", score: 1 },
+          { text: "Several — we track usage but don't act on the data fast enough", score: 2 },
+          { text: "A few — AI scores account health, but intervention is still manual", score: 3 },
+          { text: "Almost none — AI predicts churn risk 30+ days out and triggers proactive outreach", score: 4 }
         ]
       },
       {
-        text: "How automated is your customer onboarding and product adoption tracking?",
+        text: "What percentage of your new customers fully adopt your product within the first 30 days?",
         options: [
-          { text: "Manual onboarding", score: 1 },
-          { text: "Email-based automation", score: 2 },
-          { text: "AI-driven nudge engine", score: 3 },
-          { text: "Fully autonomous onboarding orchestration", score: 4 }
+          { text: "Under 20% — onboarding is a manual, high-touch process that doesn't scale", score: 1 },
+          { text: "20-40% — we send email sequences but can't personalize the journey", score: 2 },
+          { text: "40-60% — AI nudges users toward key actions based on behavior", score: 3 },
+          { text: "60%+ — AI orchestrates a fully personalized onboarding path for each user", score: 4 }
         ]
       }
     ]
@@ -301,424 +301,424 @@ const QUESTIONS = {
   industry: {
     'Telecom': [
       {
-        text: "How is AI used in your network optimization and predictive maintenance?",
+        text: "How much unplanned network downtime did you experience last quarter that AI-driven predictive maintenance could have prevented?",
         options: [
-          { text: "Manual monitoring", score: 1 },
-          { text: "Threshold alerts", score: 2 },
-          { text: "AI-assisted diagnostics", score: 3 },
-          { text: "Self-healing AI networks", score: 4 }
+          { text: "Multiple outages — we only find problems after customers complain", score: 1 },
+          { text: "A few — static thresholds catch some issues but miss slow degradation", score: 2 },
+          { text: "Rare — AI flags likely failures, but engineers still respond manually", score: 3 },
+          { text: "Near zero — AI predicts and auto-mitigates issues before users notice", score: 4 }
         ]
       },
       {
-        text: "How do you manage customer churn in high-volume mobile/broadband segments?",
+        text: "What percentage of customers who call to cancel are you actually saving with your current retention process?",
         options: [
-          { text: "Reactive retention offers", score: 1 },
-          { text: "Basic segment analysis", score: 2 },
-          { text: "AI churn prediction", score: 3 },
-          { text: "Autonomous personalized retention", score: 4 }
+          { text: "Under 10% — by the time they call, it's too late", score: 1 },
+          { text: "10-25% — we offer generic discounts but most still leave", score: 2 },
+          { text: "25-40% — AI identifies at-risk subscribers, but outreach is slow", score: 3 },
+          { text: "40%+ — AI intervenes with personalized offers before they even think of leaving", score: 4 }
         ]
       },
       {
-        text: "To what extent is AI managing your 5G infrastructure and spectrum allocation?",
+        text: "How much spectrum and infrastructure capacity are you wasting because allocation isn't dynamically optimized?",
         options: [
-          { text: "Fixed allocation", score: 1 },
-          { text: "Dynamic rule-based", score: 2 },
-          { text: "AI-assisted optimization", score: 3 },
-          { text: "Fully autonomous spectrum management", score: 4 }
+          { text: "A lot — fixed allocation means some areas are congested while others sit idle", score: 1 },
+          { text: "Some — we adjust manually based on usage reports", score: 2 },
+          { text: "Moderate — AI helps optimize but changes require manual approval", score: 3 },
+          { text: "Minimal — AI dynamically allocates spectrum in real time based on demand", score: 4 }
         ]
       },
       {
-        text: "How advanced is your AI-driven fraud detection in billing and roaming?",
+        text: "How much revenue do you lose annually to billing fraud, SIM-swap scams, or roaming abuse?",
         options: [
-          { text: "Manual audit", score: 1 },
-          { text: "Pattern matching", score: 2 },
-          { text: "Machine learning detection", score: 3 },
-          { text: "Real-time autonomous prevention", score: 4 }
+          { text: "We don't know the real number — audits are periodic and manual", score: 1 },
+          { text: "Significant — pattern-matching catches known schemes but not new ones", score: 2 },
+          { text: "Moderate — ML models detect most fraud but false positives slow us down", score: 3 },
+          { text: "Minimal — real-time AI blocks fraud as it happens with high precision", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for personalized plan recommendations and upselling?",
+        text: "How much ARPU (average revenue per user) are you leaving on the table because plan recommendations aren't personalized?",
         options: [
-          { text: "Generic offers", score: 1 },
-          { text: "Segment-based bundles", score: 2 },
-          { text: "AI-driven propensity modeling", score: 3 },
-          { text: "Hyper-personalized autonomous offers", score: 4 }
+          { text: "A lot — every customer sees the same offers on our website", score: 1 },
+          { text: "Some — we segment by plan tier but don't personalize within segments", score: 2 },
+          { text: "Moderate — AI suggests upgrades but conversion rates are still low", score: 3 },
+          { text: "Minimal — AI delivers the right offer to the right user at the right moment", score: 4 }
         ]
       }
     ],
     'SaaS': [
       {
-        text: "How integrated is AI in your product's core user experience?",
+        text: "How many of your users have asked 'why doesn't your product have AI features?' in the last 6 months — and what did you tell them?",
         options: [
-          { text: "No AI features", score: 1 },
-          { text: "AI as a side-car/add-on", score: 2 },
-          { text: "AI-enhanced core features", score: 3 },
-          { text: "AI-native / Agent-first UX", score: 4 }
+          { text: "Frequently — we're losing deals to AI-native competitors", score: 1 },
+          { text: "Sometimes — we have it on the roadmap but nothing shipped yet", score: 2 },
+          { text: "Occasionally — we've added some AI features but they're not core", score: 3 },
+          { text: "Rarely — AI is deeply embedded and users love it", score: 4 }
         ]
       },
       {
-        text: "How automated is your product-led growth (PLG) and conversion funnel?",
+        text: "What percentage of your free-trial users convert to paid — and how many drop off because nobody nudged them at the right moment?",
         options: [
-          { text: "Manual sales touch", score: 1 },
-          { text: "Basic email automation", score: 2 },
-          { text: "AI-driven nudge engine", score: 3 },
-          { text: "Fully autonomous PLG orchestration", score: 4 }
+          { text: "Under 5% — we send the same email drip to everyone and hope", score: 1 },
+          { text: "5-10% — basic automation triggers emails but timing is generic", score: 2 },
+          { text: "10-20% — AI identifies drop-off signals and triggers targeted nudges", score: 3 },
+          { text: "20%+ — AI orchestrates the full trial-to-paid journey per user", score: 4 }
         ]
       },
       {
-        text: "How do you use AI to predict feature usage and guide product development?",
+        text: "How many engineering sprints have you wasted building features that users barely adopted?",
         options: [
-          { text: "Survey data only", score: 1 },
-          { text: "Basic analytics", score: 2 },
-          { text: "AI-driven trend analysis", score: 3 },
-          { text: "Predictive feature impact modeling", score: 4 }
+          { text: "Too many — we build based on gut feel and loud customer requests", score: 1 },
+          { text: "Several — we look at basic analytics but can't predict adoption", score: 2 },
+          { text: "A few — AI-driven usage analysis informs our roadmap", score: 3 },
+          { text: "Almost none — predictive models show feature impact before we build", score: 4 }
         ]
       },
       {
-        text: "How personalized is your automated user onboarding experience?",
+        text: "How many new users give up during onboarding because the experience doesn't adapt to their specific use case?",
         options: [
-          { text: "Static tutorial", score: 1 },
-          { text: "Role-based paths", score: 2 },
-          { text: "AI-assisted onboarding", score: 3 },
-          { text: "Fully adaptive real-time onboarding", score: 4 }
+          { text: "Many — everyone gets the same 5-step tutorial regardless of role", score: 1 },
+          { text: "Some — we have role-based paths but they're still fairly generic", score: 2 },
+          { text: "A few — AI adjusts the flow based on user actions", score: 3 },
+          { text: "Almost none — AI creates a unique onboarding path for every user", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for automated security patching and vulnerability detection?",
+        text: "How quickly can you detect and patch a critical vulnerability across your entire codebase?",
         options: [
-          { text: "Manual audits", score: 1 },
-          { text: "Static code analysis", score: 2 },
-          { text: "AI-driven vulnerability scanning", score: 3 },
-          { text: "Autonomous self-patching systems", score: 4 }
+          { text: "Days to weeks — we rely on periodic manual security audits", score: 1 },
+          { text: "Hours — static analysis tools flag known patterns", score: 2 },
+          { text: "Under an hour — AI scans continuously and alerts the team", score: 3 },
+          { text: "Minutes — AI detects, patches, and deploys fixes autonomously", score: 4 }
         ]
       }
     ],
     'E-commerce': [
       {
-        text: "How advanced is your AI recommendation engine for cross-selling?",
+        text: "How much additional revenue per customer are you missing because your 'Recommended for You' section isn't truly personalized?",
         options: [
-          { text: "Basic 'People also bought'", score: 1 },
-          { text: "Rule-based suggestions", score: 2 },
-          { text: "Collaborative filtering AI", score: 3 },
-          { text: "Deep learning personalized feed", score: 4 }
+          { text: "A lot — we show 'bestsellers' and 'people also bought' to everyone", score: 1 },
+          { text: "Some — we have basic rules but they don't adapt to behavior", score: 2 },
+          { text: "Moderate — AI-driven recs work but AOV hasn't moved much", score: 3 },
+          { text: "Minimal — deep personalization drives measurable uplift in AOV", score: 4 }
         ]
       },
       {
-        text: "How do you handle dynamic pricing and discount optimization?",
+        text: "How much margin are you losing because your prices aren't adjusting in real time to competitor moves, demand shifts, and inventory levels?",
         options: [
-          { text: "Fixed pricing", score: 1 },
-          { text: "Manual seasonal sales", score: 2 },
-          { text: "Rule-based dynamic pricing", score: 3 },
-          { text: "AI-driven real-time price optimization", score: 4 }
+          { text: "Significant — we set prices manually and review them monthly", score: 1 },
+          { text: "Some — we run seasonal sales but competitors react faster", score: 2 },
+          { text: "Moderate — rule-based pricing adjusts but misses real-time signals", score: 3 },
+          { text: "Minimal — AI optimizes prices in real time across every SKU", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI in your inventory management and demand forecasting?",
+        text: "How many stockouts or overstock situations did you have last quarter that better demand forecasting could have prevented?",
         options: [
-          { text: "Manual counting", score: 1 },
-          { text: "Basic software tracking", score: 2 },
-          { text: "AI-assisted forecasting", score: 3 },
-          { text: "Autonomous supply chain orchestration", score: 4 }
+          { text: "Frequent — we regularly miss sales due to stockouts or eat costs on excess", score: 1 },
+          { text: "Several — software tracks inventory but can't predict demand spikes", score: 2 },
+          { text: "A few — AI forecasting helps but seasonal patterns still surprise us", score: 3 },
+          { text: "Almost none — AI predicts demand shifts weeks in advance", score: 4 }
         ]
       },
       {
-        text: "Do you offer AI-powered visual search or virtual try-on features?",
+        text: "What percentage of shoppers who search your site leave without finding what they wanted — because search doesn't understand intent?",
         options: [
-          { text: "No visual AI", score: 1 },
-          { text: "Basic image tagging", score: 2 },
-          { text: "Visual search enabled", score: 3 },
-          { text: "Full AR/AI virtual experience", score: 4 }
+          { text: "High — text-only search returns irrelevant results constantly", score: 1 },
+          { text: "Moderate — search works for exact terms but fails on vague queries", score: 2 },
+          { text: "Low — visual search and AI help, but complex queries still fail", score: 3 },
+          { text: "Very low — AI understands natural language, images, and context seamlessly", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for real-time fraud prevention in checkout?",
+        text: "How much do you lose annually to chargebacks and checkout fraud that slipped past your current defenses?",
         options: [
-          { text: "Manual review", score: 1 },
-          { text: "Address verification only", score: 2 },
-          { text: "AI-driven risk scoring", score: 3 },
-          { text: "Autonomous real-time blocking", score: 4 }
+          { text: "We don't know — manual review can't keep up with transaction volume", score: 1 },
+          { text: "Noticeable — address verification blocks obvious fraud but not sophisticated attacks", score: 2 },
+          { text: "Manageable — AI scoring catches most fraud but still flags too many false positives", score: 3 },
+          { text: "Minimal — AI blocks fraud in real time with high accuracy and low false-positive rates", score: 4 }
         ]
       }
     ],
     'Services': [
       {
-        text: "How much of your project estimation and resource allocation is AI-driven?",
+        text: "How often do your projects go over budget because the initial estimate was based on gut feel rather than data?",
         options: [
-          { text: "Manual spreadsheets", score: 1 },
-          { text: "Software-assisted", score: 2 },
-          { text: "AI-predicted timelines", score: 3 },
-          { text: "Autonomous resource optimization", score: 4 }
+          { text: "Frequently — scope creep and bad estimates eat into margins regularly", score: 1 },
+          { text: "Sometimes — we use past projects as reference but each one feels unique", score: 2 },
+          { text: "Occasionally — AI analyzes historical data to improve estimates", score: 3 },
+          { text: "Rarely — AI predicts timelines and costs with high accuracy", score: 4 }
         ]
       },
       {
-        text: "How do you manage institutional knowledge and internal expertise?",
+        text: "When a senior consultant leaves, how much institutional knowledge walks out the door with them?",
         options: [
-          { text: "Unstructured folders", score: 1 },
-          { text: "Internal Wiki", score: 2 },
-          { text: "AI-powered knowledge base", score: 3 },
-          { text: "Autonomous expert-matching agent", score: 4 }
+          { text: "A lot — critical knowledge lives in people's heads and email threads", score: 1 },
+          { text: "Some — we have a wiki but it's outdated and nobody maintains it", score: 2 },
+          { text: "Moderate — AI-powered knowledge base captures and surfaces expertise", score: 3 },
+          { text: "Minimal — AI continuously captures, indexes, and serves institutional knowledge", score: 4 }
         ]
       },
       {
-        text: "How automated is your client reporting and data visualization?",
+        text: "How many hours does your team spend each month building client reports and dashboards that could be auto-generated?",
         options: [
-          { text: "Manual PDF creation", score: 1 },
-          { text: "Static dashboards", score: 2 },
-          { text: "AI-generated insights", score: 3 },
-          { text: "Real-time autonomous client portals", score: 4 }
+          { text: "40+ hours — analysts manually build decks and PDFs every reporting cycle", score: 1 },
+          { text: "20-40 hours — dashboards exist but custom reports still require manual work", score: 2 },
+          { text: "10-20 hours — AI generates draft reports, humans refine and add commentary", score: 3 },
+          { text: "Under 10 hours — AI delivers real-time client portals with narrative insights", score: 4 }
         ]
       },
       {
-        text: "How do you use AI to match consultant skills with project requirements?",
+        text: "How often do you staff the wrong consultant on a project because you couldn't quickly match skills to requirements?",
         options: [
-          { text: "Manual resume review", score: 1 },
-          { text: "Keyword search", score: 2 },
-          { text: "AI-assisted matching", score: 3 },
-          { text: "Predictive resource fit modeling", score: 4 }
+          { text: "Regularly — staffing is based on availability, not fit", score: 1 },
+          { text: "Sometimes — managers know their teams but can't see across the org", score: 2 },
+          { text: "Occasionally — AI suggests matches but final decisions are manual", score: 3 },
+          { text: "Rarely — AI predicts the best consultant-project fit with high accuracy", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI in your contract review and legal compliance processes?",
+        text: "How many hours per month does your legal or compliance team spend reviewing contracts for risk clauses?",
         options: [
-          { text: "Manual review", score: 1 },
-          { text: "Template-based drafting", score: 2 },
-          { text: "AI-assisted contract analysis", score: 3 },
-          { text: "Autonomous legal review agent", score: 4 }
+          { text: "40+ hours — every contract is reviewed line-by-line manually", score: 1 },
+          { text: "20-40 hours — templates help but redlines and custom terms need full review", score: 2 },
+          { text: "10-20 hours — AI highlights risky clauses, humans make the call", score: 3 },
+          { text: "Under 10 hours — AI handles full contract analysis and flags exceptions only", score: 4 }
         ]
       }
     ],
     'Healthcare': [
       {
-        text: "To what extent is AI used in your patient data analysis or diagnostic support?",
+        text: "How many patient cases per month could benefit from AI-assisted pattern recognition that your clinicians don't have time to perform manually?",
         options: [
-          { text: "Digital records only", score: 1 },
-          { text: "Basic data visualization", score: 2 },
-          { text: "AI-assisted screening", score: 3 },
-          { text: "Predictive health modeling", score: 4 }
+          { text: "Hundreds — clinicians rely solely on their experience and available test results", score: 1 },
+          { text: "Many — we have digital records but no AI layer analyzing patterns", score: 2 },
+          { text: "Some — AI assists with screening but isn't integrated into daily workflows", score: 3 },
+          { text: "Few — AI proactively surfaces insights and risk patterns for every patient", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI in your remote patient monitoring (RPM) systems?",
+        text: "How many preventable ER visits or readmissions happen each quarter because remote patients aren't monitored between appointments?",
         options: [
-          { text: "No RPM", score: 1 },
-          { text: "Basic data collection", score: 2 },
-          { text: "AI-flagged anomalies", score: 3 },
-          { text: "Autonomous proactive intervention", score: 4 }
+          { text: "Many — we have no remote monitoring; patients come back only when symptoms worsen", score: 1 },
+          { text: "Some — wearables collect data but nobody reviews it until the next visit", score: 2 },
+          { text: "A few — AI flags critical readings, but response time is still slow", score: 3 },
+          { text: "Very few — AI detects anomalies in real time and triggers immediate intervention", score: 4 }
         ]
       },
       {
-        text: "How do you use AI in clinical research or drug discovery processes?",
+        text: "How many months does it take your research team to identify promising compounds or analyze trial data that AI could accelerate?",
         options: [
-          { text: "Traditional methods only", score: 1 },
-          { text: "Data management software", score: 2 },
-          { text: "AI-assisted molecule modeling", score: 3 },
-          { text: "End-to-end AI discovery platform", score: 4 }
+          { text: "12+ months — traditional methods with no computational acceleration", score: 1 },
+          { text: "6-12 months — data management software helps organize but doesn't predict", score: 2 },
+          { text: "3-6 months — AI assists with molecular modeling and data analysis", score: 3 },
+          { text: "Under 3 months — end-to-end AI platform accelerates the entire pipeline", score: 4 }
         ]
       },
       {
-        text: "How automated is your medical billing and insurance claim processing?",
+        text: "What percentage of your insurance claims get denied on first submission due to coding errors that AI could have caught?",
         options: [
-          { text: "Manual entry", score: 1 },
-          { text: "Rule-based software", score: 2 },
-          { text: "AI-assisted coding", score: 3 },
-          { text: "Autonomous claim resolution", score: 4 }
+          { text: "15%+ — manual coding leads to frequent denials and revenue delays", score: 1 },
+          { text: "10-15% — rule-based software catches some errors but not all", score: 2 },
+          { text: "5-10% — AI-assisted coding reduces errors significantly", score: 3 },
+          { text: "Under 5% — AI validates every claim before submission with near-perfect accuracy", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for personalized patient treatment plans and follow-up?",
+        text: "How many patients fall through the cracks on follow-up care because treatment plans aren't personalized and tracked automatically?",
         options: [
-          { text: "Standard protocols", score: 1 },
-          { text: "Doctor-led customization", score: 2 },
-          { text: "AI-assisted recommendations", score: 3 },
-          { text: "Hyper-personalized autonomous care plans", score: 4 }
+          { text: "Many — patients get standard protocols and manual follow-up calls", score: 1 },
+          { text: "Some — doctors customize plans but tracking compliance is manual", score: 2 },
+          { text: "A few — AI helps tailor recommendations and sends reminders", score: 3 },
+          { text: "Very few — AI creates and dynamically adjusts personalized care plans", score: 4 }
         ]
       }
     ],
     'Fintech': [
       {
-        text: "How advanced is your AI-driven risk assessment for transactions?",
+        text: "How much money did your platform lose to fraudulent transactions last quarter that faster, smarter risk models could have blocked?",
         options: [
-          { text: "Standard credit scoring", score: 1 },
-          { text: "Enhanced rule-sets", score: 2 },
-          { text: "Machine learning models", score: 3 },
-          { text: "Real-time behavioral AI", score: 4 }
+          { text: "Significant — standard credit scoring misses sophisticated fraud patterns", score: 1 },
+          { text: "Noticeable — enhanced rules catch known schemes but not novel ones", score: 2 },
+          { text: "Moderate — ML models detect most fraud but latency allows some through", score: 3 },
+          { text: "Minimal — real-time behavioral AI blocks fraud before transactions complete", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI in your algorithmic trading or investment strategies?",
+        text: "How much alpha (excess returns) are you leaving on the table because your trading strategies can't process market signals fast enough?",
         options: [
-          { text: "Human-led only", score: 1 },
-          { text: "Basic quant models", score: 2 },
-          { text: "AI-assisted strategies", score: 3 },
-          { text: "Fully autonomous AI trading", score: 4 }
+          { text: "A lot — human analysts can't compete with AI-driven trading desks", score: 1 },
+          { text: "Some — basic quant models work but miss complex multi-factor patterns", score: 2 },
+          { text: "Moderate — AI assists strategy development but execution is partly manual", score: 3 },
+          { text: "Minimal — fully autonomous AI processes thousands of signals in real time", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for regulatory compliance and AML (Anti-Money Laundering)?",
+        text: "How many hours does your compliance team spend each week on AML checks and regulatory reporting that AI could handle?",
         options: [
-          { text: "Manual audit", score: 1 },
-          { text: "Rule-based flagging", score: 2 },
-          { text: "AI-driven anomaly detection", score: 3 },
-          { text: "Autonomous compliance monitoring", score: 4 }
+          { text: "40+ hours — manual transaction review and report generation", score: 1 },
+          { text: "20-40 hours — rule-based flagging creates too many false positives to review", score: 2 },
+          { text: "10-20 hours — AI reduces false positives but humans still verify", score: 3 },
+          { text: "Under 10 hours — AI handles monitoring and generates reports autonomously", score: 4 }
         ]
       },
       {
-        text: "How personalized is your AI-driven financial advice for retail users?",
+        text: "How many users leave your platform for competitors that offer smarter, more personalized financial guidance?",
         options: [
-          { text: "Generic advice", score: 1 },
-          { text: "Segment-based tips", score: 2 },
-          { text: "AI-assisted coaching", score: 3 },
-          { text: "Hyper-personalized autonomous advisor", score: 4 }
+          { text: "Many — our advice is generic and users don't feel understood", score: 1 },
+          { text: "Some — segment-based tips help but feel impersonal", score: 2 },
+          { text: "A few — AI coaching is improving but not yet a differentiator", score: 3 },
+          { text: "Very few — hyper-personalized AI advisor keeps users engaged and loyal", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for real-time credit limit adjustments and lending decisions?",
+        text: "How many creditworthy customers are you rejecting — or risky ones approving — because lending decisions aren't using real-time data?",
         options: [
-          { text: "Fixed limits", score: 1 },
-          { text: "Manual review for increases", score: 2 },
-          { text: "AI-assisted scoring", score: 3 },
-          { text: "Autonomous real-time credit orchestration", score: 4 }
+          { text: "Many — fixed rules mean we're too conservative or too lenient depending on the case", score: 1 },
+          { text: "Some — manual reviews add nuance but can't scale", score: 2 },
+          { text: "A few — AI scoring improves accuracy but doesn't update in real time", score: 3 },
+          { text: "Very few — real-time AI adjusts credit decisions dynamically with live data", score: 4 }
         ]
       }
     ],
     'Manufacturing': [
       {
-        text: "How integrated is AI in your quality control and defect detection?",
+        text: "How many defective units shipped last quarter that AI-powered visual inspection could have caught on the line?",
         options: [
-          { text: "Human visual inspection", score: 1 },
-          { text: "Basic sensor alerts", score: 2 },
-          { text: "Computer vision AI", score: 3 },
-          { text: "Autonomous closed-loop QC", score: 4 }
+          { text: "Too many — human inspectors miss defects, especially during long shifts", score: 1 },
+          { text: "Some — basic sensors catch major flaws but miss cosmetic or micro-defects", score: 2 },
+          { text: "A few — computer vision AI catches most defects but isn't on every line", score: 3 },
+          { text: "Near zero — AI inspects 100% of output and auto-rejects defective units", score: 4 }
         ]
       },
       {
-        text: "How advanced is your predictive maintenance for factory floor machinery?",
+        text: "How much did unplanned machine downtime cost you last quarter in lost production and emergency repairs?",
         options: [
-          { text: "Reactive repairs", score: 1 },
-          { text: "Scheduled maintenance", score: 2 },
-          { text: "Sensor-based alerts", score: 3 },
-          { text: "AI-driven predictive failure modeling", score: 4 }
+          { text: "Hundreds of thousands — we fix machines after they break", score: 1 },
+          { text: "Tens of thousands — scheduled maintenance helps but breakdowns still happen", score: 2 },
+          { text: "Moderate — sensor alerts give some warning but not enough lead time", score: 3 },
+          { text: "Minimal — AI predicts failures days in advance and schedules optimal maintenance", score: 4 }
         ]
       },
       {
-        text: "How do you use AI to optimize energy consumption in your facilities?",
+        text: "What percentage of your energy bill do you estimate is wasted due to inefficient equipment scheduling and facility management?",
         options: [
-          { text: "Manual monitoring", score: 1 },
-          { text: "Basic smart meters", score: 2 },
-          { text: "AI-assisted optimization", score: 3 },
-          { text: "Autonomous energy management systems", score: 4 }
+          { text: "15%+ — we don't actively monitor or optimize energy usage", score: 1 },
+          { text: "10-15% — smart meters track usage but don't make recommendations", score: 2 },
+          { text: "5-10% — AI suggests optimizations that operators implement manually", score: 3 },
+          { text: "Under 5% — AI autonomously manages energy consumption in real time", score: 4 }
         ]
       },
       {
-        text: "Are you using generative AI for product design and engineering?",
+        text: "How many design iterations does your team go through before reaching an optimal product design?",
         options: [
-          { text: "Traditional CAD only", score: 1 },
-          { text: "Parametric design", score: 2 },
-          { text: "AI-assisted design", score: 3 },
-          { text: "Generative AI-driven design", score: 4 }
+          { text: "10+ — traditional CAD means slow trial-and-error cycles", score: 1 },
+          { text: "5-10 — parametric tools speed things up but exploration is still manual", score: 2 },
+          { text: "3-5 — AI suggests optimizations that engineers evaluate", score: 3 },
+          { text: "1-3 — generative AI explores thousands of options and recommends the best", score: 4 }
         ]
       },
       {
-        text: "How automated is your supply chain logistics and warehouse management?",
+        text: "How much do late deliveries and misrouted shipments cost you in penalties, rush fees, and lost customer trust?",
         options: [
-          { text: "Manual coordination", score: 1 },
-          { text: "Software-assisted tracking", score: 2 },
-          { text: "AI-optimized routing", score: 3 },
-          { text: "Fully autonomous logistics orchestration", score: 4 }
+          { text: "Significant — manual coordination leads to frequent delays", score: 1 },
+          { text: "Noticeable — tracking software helps but routing isn't optimized", score: 2 },
+          { text: "Moderate — AI optimizes routes but can't adapt to real-time disruptions", score: 3 },
+          { text: "Minimal — AI orchestrates the full supply chain with real-time adjustments", score: 4 }
         ]
       }
     ],
     'Real Estate': [
       {
-        text: "How much do you rely on AI for property valuation and market trend prediction?",
+        text: "How many investment opportunities has your team missed because you couldn't analyze market trends and property values fast enough?",
         options: [
-          { text: "Manual comps only", score: 1 },
-          { text: "Basic online estimators", score: 2 },
-          { text: "AI-driven market analysis", score: 3 },
-          { text: "Predictive investment modeling", score: 4 }
+          { text: "Many — we rely on manual comps and local knowledge", score: 1 },
+          { text: "Some — online estimators help but don't capture micro-market trends", score: 2 },
+          { text: "A few — AI market analysis informs decisions but isn't real-time", score: 3 },
+          { text: "Almost none — AI surfaces undervalued properties and predicts appreciation", score: 4 }
         ]
       },
       {
-        text: "Do you use AI for virtual property tours or automated staging?",
+        text: "How many potential buyers disengage because they can't visualize a property's potential from static photos?",
         options: [
-          { text: "Photos only", score: 1 },
-          { text: "360-degree tours", score: 2 },
-          { text: "AI-enhanced virtual staging", score: 3 },
-          { text: "Full VR/AI immersive experience", score: 4 }
+          { text: "Many — we lose out-of-town buyers who can't visit in person", score: 1 },
+          { text: "Some — 360 tours help but empty properties still don't sell themselves", score: 2 },
+          { text: "A few — AI virtual staging brings spaces to life for most listings", score: 3 },
+          { text: "Very few — full VR/AI immersive experiences convert remote buyers regularly", score: 4 }
         ]
       },
       {
-        text: "How automated is your lead scoring and matching for potential buyers?",
+        text: "How many hours per week do your agents spend following up with leads that were never going to convert?",
         options: [
-          { text: "Manual follow-up", score: 1 },
-          { text: "Basic CRM filters", score: 2 },
-          { text: "AI-assisted scoring", score: 3 },
-          { text: "Autonomous buyer-property matching", score: 4 }
+          { text: "10+ hours — every lead gets the same manual follow-up sequence", score: 1 },
+          { text: "5-10 hours — CRM filters help but agents still chase cold leads", score: 2 },
+          { text: "2-5 hours — AI scores leads but agents still decide who to call", score: 3 },
+          { text: "Under 2 hours — AI auto-matches buyers to properties and prioritizes hot leads", score: 4 }
         ]
       },
       {
-        text: "How integrated is AI in your building management systems (PropTech)?",
+        text: "How much are you overspending on building operations (HVAC, lighting, security) because systems aren't intelligently managed?",
         options: [
-          { text: "Manual controls", score: 1 },
-          { text: "Smart thermostats", score: 2 },
-          { text: "AI-assisted energy/security", score: 3 },
-          { text: "Fully autonomous smart buildings", score: 4 }
+          { text: "15%+ — manual controls and fixed schedules waste energy daily", score: 1 },
+          { text: "10-15% — smart thermostats help but don't coordinate across systems", score: 2 },
+          { text: "5-10% — AI optimizes some systems but building-wide coordination is limited", score: 3 },
+          { text: "Under 5% — fully autonomous building management optimizes everything in real time", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for automated lease management and tenant screening?",
+        text: "How many bad tenants have cost you money because screening missed red flags that AI could have caught?",
         options: [
-          { text: "Manual paperwork", score: 1 },
-          { text: "Software-assisted screening", score: 2 },
-          { text: "AI-driven risk assessment", score: 3 },
-          { text: "Autonomous property management agent", score: 4 }
+          { text: "Several — manual background checks miss patterns across applications", score: 1 },
+          { text: "A few — software-assisted screening helps but doesn't predict risk well", score: 2 },
+          { text: "Rare — AI risk assessment flags most high-risk applicants", score: 3 },
+          { text: "Almost none — AI evaluates every data point and predicts tenant quality accurately", score: 4 }
         ]
       }
     ],
     'EdTech': [
       {
-        text: "How personalized is the learning path for your students using AI?",
+        text: "How many students are falling behind right now because they're stuck on a one-size-fits-all curriculum that doesn't match their learning pace?",
         options: [
-          { text: "Linear curriculum", score: 1 },
-          { text: "Branching logic paths", score: 2 },
-          { text: "AI-assisted recommendations", score: 3 },
-          { text: "Fully adaptive AI learning", score: 4 }
+          { text: "Many — everyone follows the same linear path regardless of ability", score: 1 },
+          { text: "Some — branching paths exist but don't truly adapt to individual progress", score: 2 },
+          { text: "A few — AI recommends content adjustments but teachers make all decisions", score: 3 },
+          { text: "Very few — AI continuously adapts difficulty, pace, and content for each learner", score: 4 }
         ]
       },
       {
-        text: "How much of your grading and feedback is automated using AI?",
+        text: "How many hours per week do your instructors spend grading assignments that AI could evaluate with detailed, personalized feedback?",
         options: [
-          { text: "Manual grading only", score: 1 },
-          { text: "Multiple choice auto-grading", score: 2 },
-          { text: "AI-assisted essay feedback", score: 3 },
-          { text: "Fully autonomous grading & feedback", score: 4 }
+          { text: "15+ hours — all grading is manual, eating into teaching and content time", score: 1 },
+          { text: "8-15 hours — auto-grading handles MCQs but essays and projects are manual", score: 2 },
+          { text: "3-8 hours — AI provides feedback drafts that instructors review", score: 3 },
+          { text: "Under 3 hours — AI grades and gives personalized feedback autonomously", score: 4 }
         ]
       },
       {
-        text: "How do you use AI to predict student engagement and dropout risk?",
+        text: "What percentage of your enrolled students complete their courses — and how many drop off silently because nobody noticed they were struggling?",
         options: [
-          { text: "No predictive measures", score: 1 },
-          { text: "Attendance tracking", score: 2 },
-          { text: "AI-scored engagement metrics", score: 3 },
-          { text: "Predictive intervention modeling", score: 4 }
+          { text: "Under 30% completion — students disappear and we don't know why until it's too late", score: 1 },
+          { text: "30-50% — we track attendance but can't predict who's about to drop off", score: 2 },
+          { text: "50-70% — AI flags at-risk students, but intervention is still manual", score: 3 },
+          { text: "70%+ — AI predicts drop-off risk early and triggers personalized re-engagement", score: 4 }
         ]
       },
       {
-        text: "Is AI used to generate or update your educational content?",
+        text: "How quickly can you create or update a course module when new information, tools, or regulations emerge in your subject area?",
         options: [
-          { text: "Manual creation only", score: 1 },
-          { text: "AI-assisted drafting", score: 2 },
-          { text: "AI-generated lesson plans", score: 3 },
-          { text: "Fully autonomous content engine", score: 4 }
+          { text: "Months — content creation is entirely manual and slow", score: 1 },
+          { text: "Weeks — AI helps draft but review cycles are long", score: 2 },
+          { text: "Days — AI generates lesson plans and materials, humans curate", score: 3 },
+          { text: "Hours — AI autonomously updates content and flags changes for approval", score: 4 }
         ]
       },
       {
-        text: "How do you use AI for real-time student support and tutoring (AI Tutors)?",
+        text: "How many student questions go unanswered outside of business hours — losing engagement during peak study time?",
         options: [
-          { text: "No real-time support", score: 1 },
-          { text: "Email-based support", score: 2 },
-          { text: "AI Chatbot for FAQ", score: 3 },
-          { text: "Autonomous 24/7 AI Tutor", score: 4 }
+          { text: "Most — students email questions and wait 24-48 hours for a response", score: 1 },
+          { text: "Many — support is limited to office hours; evenings and weekends are dead", score: 2 },
+          { text: "Some — a chatbot handles FAQs but can't help with course-specific questions", score: 3 },
+          { text: "Very few — an AI tutor provides instant, contextual help 24/7", score: 4 }
         ]
       }
     ]
@@ -827,9 +827,7 @@ const Header = ({ onNavigate, currentScreen, user, onLogout }: { onNavigate: (s:
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => onNavigate('landing')}
         >
-          <div className="bg-blue-600 p-1.5 rounded-lg">
-            <BrainCircuit className="w-6 h-6 text-white" />
-          </div>
+          <img src="/toasterailogo.png" alt="ToasterAI" className="w-8 h-8 object-contain" />
           <span className="text-xl font-bold text-slate-900 tracking-tight">ToasterAI</span>
         </div>
         <nav className="hidden md:flex items-center gap-8">
@@ -875,7 +873,7 @@ const Footer = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         <div className="col-span-1 md:col-span-1">
           <div className="flex items-center gap-2 mb-6 cursor-pointer" onClick={() => onNavigate('landing')}>
-            <BrainCircuit className="w-8 h-8 text-blue-500" />
+            <img src="/toasterailogo.png" alt="ToasterAI" className="w-10 h-10 object-contain" />
             <span className="text-2xl font-bold text-white tracking-tight">ToasterAI</span>
           </div>
           <p className="text-sm leading-relaxed mb-6">
