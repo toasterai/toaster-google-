@@ -827,7 +827,7 @@ const Header = ({ onNavigate, currentScreen, user, onLogout }: { onNavigate: (s:
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => onNavigate('landing')}
         >
-          <img src="/toasterailogo.png" alt="ToasterAI" className="h-12 object-contain rounded-xl" />
+          <img src="/toasterailogo.png" alt="ToasterAI" className="h-14 object-contain" />
           <span className="text-xl font-bold text-slate-900 tracking-tight">ToasterAI</span>
         </div>
         <nav className="hidden md:flex items-center gap-8">
@@ -873,7 +873,7 @@ const Footer = ({ onNavigate }: { onNavigate: (s: Screen) => void }) => (
       <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
         <div className="col-span-1 md:col-span-1">
           <div className="flex items-center gap-2 mb-6 cursor-pointer" onClick={() => onNavigate('landing')}>
-            <img src="/toasterailogo.png" alt="ToasterAI" className="h-14 object-contain rounded-xl" />
+            <img src="/toasterailogo.png" alt="ToasterAI" className="h-16 object-contain" />
             <span className="text-2xl font-bold text-white tracking-tight">ToasterAI</span>
           </div>
           <p className="text-sm leading-relaxed mb-6">
