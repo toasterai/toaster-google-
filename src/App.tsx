@@ -827,7 +827,9 @@ const Header = ({ onNavigate, currentScreen, user, onLogout }: { onNavigate: (s:
           className="flex items-center gap-2 cursor-pointer"
           onClick={() => onNavigate('landing')}
         >
-          <img src="/toasterailogo.png" alt="ToasterAI" className="h-14 object-contain mix-blend-lighten" />
+          <div className="h-10 w-10 rounded-xl bg-slate-900 flex items-center justify-center overflow-hidden">
+            <img src="/toasterailogo.png" alt="ToasterAI" className="h-10 w-10 object-cover" />
+          </div>
           <span className="text-xl font-bold text-slate-900 tracking-tight">ToasterAI</span>
         </div>
         <nav className="hidden md:flex items-center gap-8">
