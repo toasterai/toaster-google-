@@ -20,7 +20,7 @@ import {
 // ============================================================
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDELhKUVd59FX1lctWBcvQzDmc1zj7dW10",
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "toasterai-b9c65.firebaseapp.com",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "toasterai.org",
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "toasterai-b9c65",
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "toasterai-b9c65.firebasestorage.app",
   messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "1068248009964",
