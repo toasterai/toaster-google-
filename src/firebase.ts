@@ -19,13 +19,13 @@ import {
 // 5. Enable Authentication > Sign-in method > Email/Password AND Google
 // ============================================================
 const firebaseConfig = {
-  apiKey: process.env.VITE_FIREBASE_API_KEY || '',
-  authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || '',
-  projectId: process.env.VITE_FIREBASE_PROJECT_ID || '',
-  storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || '',
-  messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
-  appId: process.env.VITE_FIREBASE_APP_ID || '',
-  measurementId: process.env.VITE_FIREBASE_MEASUREMENT_ID || '',
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || "AIzaSyDELhKUVd59FX1lctWBcvQzDmc1zj7dW10",
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || "toasterai-b9c65.firebaseapp.com",
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || "toasterai-b9c65",
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || "toasterai-b9c65.firebasestorage.app",
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || "1068248009964",
+  appId: import.meta.env.VITE_FIREBASE_APP_ID || "1:1068248009964:web:19f223ebe7b654c40ba9c9",
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID || "G-GPXEXJFT46",
 };
 
 const isConfigured = !!firebaseConfig.apiKey && !!firebaseConfig.projectId;
