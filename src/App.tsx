@@ -1796,8 +1796,8 @@ export default function App() {
         >
           <div className="bg-white rounded-3xl p-8 md:p-10 shadow-xl border border-slate-100">
             <div className="text-center mb-8">
-              <div className="bg-blue-600 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5">
-                <BrainCircuit className="w-8 h-8 text-white" />
+              <div className="w-16 h-16 mx-auto mb-5">
+                <img src="/toasterailogo.png" alt="ToasterAI" className="w-full h-full object-contain" />
               </div>
               <h2 className="text-2xl font-bold text-slate-900">
                 {mode === 'login' ? 'Welcome Back' : 'Create Your Account'}

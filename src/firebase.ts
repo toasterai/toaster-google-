@@ -51,18 +51,22 @@ export { auth, googleProvider };
 // --- Auth Helper Functions ---
 
 export async function signUp(email: string, password: string) {
+  if (!auth) throw { code: 'auth/not-configured', message: 'Firebase is not configured. Please set up your Firebase environment variables.' };
   return createUserWithEmailAndPassword(auth, email, password);
 }
 
 export async function logIn(email: string, password: string) {
+  if (!auth) throw { code: 'auth/not-configured', message: 'Firebase is not configured. Please set up your Firebase environment variables.' };
   return signInWithEmailAndPassword(auth, email, password);
 }
 
 export async function logOut() {
+  if (!auth) return;
   return signOut(auth);
 }
 
 export async function signInWithGoogle() {
+  if (!auth || !googleProvider) throw { code: 'auth/not-configured', message: 'Firebase is not configured. Please set up your Firebase environment variables.' };
   return signInWithPopup(auth, googleProvider);
 }
 
