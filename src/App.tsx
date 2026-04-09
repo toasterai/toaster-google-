@@ -731,7 +731,7 @@ const COURSES = [
     title: "AI Transformation: Foundations",
     category: "Core",
     level: "Beginner",
-    price: 49.99,
+    price: 19.99,
     features: ["AI Audit Framework", "Basic Automation Guide", "Industry Benchmarks"],
     description: "Start your journey into AI transformation. Learn the basics of identifying efficiency gaps and setting up your first AI agents.",
     modules: [
@@ -744,7 +744,7 @@ const COURSES = [
     title: "AI Transformation: Professional Certification",
     category: "Core",
     level: "Advanced",
-    price: 99.99,
+    price: 49.99,
     features: ["Full AI Audit Framework", "24/7 AI Mentor Access", "Industry-Recognized Badge"],
     description: "The definitive guide to restructuring your business for the AI era. Learn how to implement complex agentic workflows and scale AI across your organization.",
     modules: [
@@ -774,7 +774,7 @@ const COURSES = [
       category: "Role",
       role: role,
       level: "Advanced",
-      price: 39.99,
+      price: 19.99,
       features: ["Advanced Agentic Workflows", "Custom AI Model Training", "Live Case Studies"],
       description: `Master the advanced AI techniques that empower ${role} professionals to lead their departments and drive massive strategic impact.`,
       modules: [
@@ -791,7 +791,7 @@ const COURSES = [
       category: "Industry",
       industry: industry,
       level: "Beginner",
-      price: 24.99,
+      price: 19.99,
       features: ["Sector Benchmarks", "Intro to Industry AI", "Case Studies"],
       description: `Understand how AI is starting to change the ${industry} landscape and what you need to know to stay relevant.`,
       modules: [
@@ -805,7 +805,7 @@ const COURSES = [
       category: "Industry",
       industry: industry,
       level: "Advanced",
-      price: 49.99,
+      price: 19.99,
       features: ["Advanced Implementation Roadmap", "Compliance & Ethics Guide", "Future Trends"],
       description: `A comprehensive strategic playbook for leading AI transformation in the ${industry} sector.`,
       modules: [
@@ -1030,7 +1030,12 @@ const Modal = ({ isOpen, onClose, children }: { isOpen: boolean, onClose: () => 
 // --- Main App ---
 
 export default function App() {
-  const [screen, setScreen] = useState<Screen>('landing');
+  const [screen, setScreen] = useState<Screen>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get('page');
+    if (page && ['catalog', 'segmentation', 'auth'].includes(page)) return page as Screen;
+    return 'landing';
+  });
   const [user, setUser] = useState<User | null>(null);
   const [authLoading, setAuthLoading] = useState(true);
   const [userData, setUserData] = useState({

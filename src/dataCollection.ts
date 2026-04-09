@@ -26,20 +26,32 @@ export async function collectData(data: CollectionData): Promise<boolean> {
   }
 
   try {
-    // Google Apps Script redirects POST to GET (302), which causes CORS issues
-    // in browsers. Using no-cors mode ensures the POST reaches the server.
-    // We can't read the response (opaque), but the data is processed server-side.
-    await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(data),
+    // Send data as URL parameter to avoid CORS/redirect issues with POST body.
+    // Apps Script redirects POST→GET (302), which drops the POST body.
+    // By encoding data in the URL, it survives the redirect.
+    const encodedData = encodeURIComponent(JSON.stringify(data));
+    const url = `${GOOGLE_SHEET_WEBHOOK_URL}?data=${encodedData}`;
+
+    const response = await fetch(url, {
+      method: 'GET',
+      redirect: 'follow',
     });
-    console.log('[Data Collection] Request sent successfully');
-    return true;
+    const result = await response.json();
+    console.log('[Data Collection] Response:', result);
+    return result?.status === 'ok';
   } catch (error) {
     console.error('[Data Collection] Failed:', error);
-    return false;
+    // Fallback: try with no-cors GET
+    try {
+      const encodedData = encodeURIComponent(JSON.stringify(data));
+      const url = `${GOOGLE_SHEET_WEBHOOK_URL}?data=${encodedData}`;
+      await fetch(url, { method: 'GET', mode: 'no-cors' });
+      console.log('[Data Collection] Sent via no-cors fallback');
+      return true;
+    } catch (fallbackError) {
+      console.error('[Data Collection] All attempts failed:', fallbackError);
+      return false;
+    }
   }
 }
 

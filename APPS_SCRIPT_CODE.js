@@ -144,7 +144,7 @@ function sendReportEmail(data) {
         </div>
 
         <div style="text-align: center; margin-top: 32px;">
-          <a href="https://toaster-google.vercel.app/" style="display: inline-block; background: #3b82f6; color: white; padding: 14px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px;">
+          <a href="https://toaster-google.vercel.app/?page=catalog" style="display: inline-block; background: #3b82f6; color: white; padding: 14px 32px; border-radius: 12px; text-decoration: none; font-weight: 600; font-size: 15px;">
             View Recommended Courses
           </a>
           <p style="color: #94a3b8; font-size: 12px; margin-top: 16px;">
