@@ -731,7 +731,7 @@ const COURSES = [
     title: "AI Transformation: Foundations",
     category: "Core",
     level: "Beginner",
-    price: 19.99,
+    price: 0,
     features: ["AI Audit Framework", "Basic Automation Guide", "Industry Benchmarks"],
     description: "Start your journey into AI transformation. Learn the basics of identifying efficiency gaps and setting up your first AI agents.",
     modules: [
@@ -760,7 +760,7 @@ const COURSES = [
       category: "Role",
       role: role,
       level: "Beginner",
-      price: 19.99,
+      price: 0,
       features: [`${role}-Specific Prompt Library`, "Basic Workflow Templates", "Tool Guide"],
       description: `Get started with AI in your role as a ${role}. Learn the essential tools and prompts to boost your daily productivity.`,
       modules: [
@@ -791,7 +791,7 @@ const COURSES = [
       category: "Industry",
       industry: industry,
       level: "Beginner",
-      price: 19.99,
+      price: 0,
       features: ["Sector Benchmarks", "Intro to Industry AI", "Case Studies"],
       description: `Understand how AI is starting to change the ${industry} landscape and what you need to know to stay relevant.`,
       modules: [
@@ -1049,6 +1049,11 @@ export default function App() {
   const [isSyllabusOpen, setIsSyllabusOpen] = useState(false);
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [checkoutState, setCheckoutState] = useState<'idle' | 'processing' | 'success'>('idle');
+  const [enrolledCourses, setEnrolledCourses] = useState<string[]>(() => {
+    try {
+      return JSON.parse(localStorage.getItem('enrolledCourses') || '[]');
+    } catch { return []; }
+  });
   const [reportStatus, setReportStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   // Firebase Auth listener
@@ -1063,6 +1068,16 @@ export default function App() {
     });
     return () => unsubscribe();
   }, []);
+
+  // Auto-enroll in pending free course after sign-in
+  useEffect(() => {
+    if (user && selectedCourse && selectedCourse.price === 0 && !enrolledCourses.includes(selectedCourse.id)) {
+      enrollInCourse(selectedCourse.id);
+      setCheckoutState('success');
+      setIsCheckoutOpen(true);
+      setScreen('catalog');
+    }
+  }, [user]);
 
   // Derived Data
   const totalScore = useMemo(() => {
@@ -1150,7 +1165,28 @@ export default function App() {
     }
   };
 
+  const enrollInCourse = (courseId: string) => {
+    const updated = [...enrolledCourses, courseId];
+    setEnrolledCourses(updated);
+    localStorage.setItem('enrolledCourses', JSON.stringify(updated));
+  };
+
   const handleEnroll = (course: any) => {
+    if (course.price === 0) {
+      // Free course: require sign-in first
+      if (!user) {
+        setSelectedCourse(course);
+        setScreen('auth');
+        return;
+      }
+      // Already signed in: enroll directly
+      setSelectedCourse(course);
+      enrollInCourse(course.id);
+      setCheckoutState('success');
+      setIsCheckoutOpen(true);
+      return;
+    }
+    // Paid course: show checkout
     setSelectedCourse(course);
     setIsCheckoutOpen(true);
     setCheckoutState('idle');
@@ -1160,6 +1196,7 @@ export default function App() {
     e.preventDefault();
     setCheckoutState('processing');
     setTimeout(() => {
+      if (selectedCourse) enrollInCourse(selectedCourse.id);
       setCheckoutState('success');
       setTimeout(() => {
         setIsCheckoutOpen(false);
@@ -1655,7 +1692,7 @@ export default function App() {
                         {course.level}
                       </span>
                     </div>
-                    <span className="text-2xl font-black text-slate-900">${course.price}</span>
+                    <span className="text-2xl font-black text-slate-900">{course.price === 0 ? 'Free' : `$${course.price}`}</span>
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-4 leading-tight">{course.title}</h3>
                   <ul className="space-y-3 mb-8 flex-grow">
@@ -1674,11 +1711,11 @@ export default function App() {
                       <PlayCircle className="w-4 h-4" />
                       Preview Syllabus
                     </button>
-                    <button 
+                    <button
                       onClick={() => handleEnroll(course)}
-                      className="w-full py-4 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition-all shadow-lg shadow-blue-100"
+                      className={`w-full py-4 rounded-xl font-bold text-sm transition-all shadow-lg ${enrolledCourses.includes(course.id) ? 'bg-green-600 text-white hover:bg-green-700 shadow-green-100' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100'}`}
                     >
-                      Enroll Now
+                      {enrolledCourses.includes(course.id) ? '✓ Access Course' : course.price === 0 ? 'Enroll Free' : 'Enroll Now'}
                     </button>
                   </div>
                 </motion.div>
@@ -2010,7 +2047,7 @@ export default function App() {
                   <p className="text-xs font-bold text-slate-400 uppercase mb-1">Selected Course</p>
                   <p className="text-sm font-bold text-slate-800">{selectedCourse?.title}</p>
                 </div>
-                <p className="text-xl font-black text-slate-900">${selectedCourse?.price}</p>
+                <p className="text-xl font-black text-slate-900">{selectedCourse?.price === 0 ? 'Free' : `$${selectedCourse?.price}`}</p>
               </div>
 
               <form onSubmit={handleCheckoutSubmit} className="space-y-4">
@@ -2030,7 +2067,7 @@ export default function App() {
                   <input type="text" required placeholder="CVC" className="w-full p-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-blue-500 outline-none transition-all" />
                 </div>
                 <button type="submit" className="w-full bg-blue-600 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-700 transition-all mt-4 shadow-lg shadow-blue-100">
-                  Pay ${selectedCourse?.price}
+                  Pay ${selectedCourse?.price?.toFixed(2)}
                 </button>
               </form>
             </>
@@ -2046,7 +2083,7 @@ export default function App() {
 
           {checkoutState === 'success' && (
             <div className="py-20 flex flex-col items-center justify-center text-center">
-              <motion.div 
+              <motion.div
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6"
@@ -2054,7 +2091,17 @@ export default function App() {
                 <CheckCircle2 className="w-10 h-10 text-green-600" />
               </motion.div>
               <h3 className="text-2xl font-bold text-slate-900 mb-2">Enrollment Successful!</h3>
-              <p className="text-slate-500">Welcome to ToasterAI. Check your email for access details.</p>
+              <p className="text-slate-500 mb-6">
+                {selectedCourse?.price === 0
+                  ? 'You now have full access to this course. Start learning today!'
+                  : 'Welcome to ToasterAI. Check your email for access details.'}
+              </p>
+              <button
+                onClick={() => { setIsCheckoutOpen(false); setCheckoutState('idle'); }}
+                className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all"
+              >
+                Start Learning
+              </button>
             </div>
           )}
         </div>
