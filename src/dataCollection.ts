@@ -4,7 +4,7 @@
 // Update your Apps Script (Extensions > Apps Script) with the
 // code shown in APPS_SCRIPT_CODE.md, then redeploy.
 // ============================================================
-const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbw76grMFbJv4x-86rmuDxRLsxVUmnWMh1m5r9FP4uOgvBmFGPp4_XG0lfdTtydc7RiAGw/exec';
+const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxbNxWEj_JXG6jyeN69mO2_hv-VM_bQSOK0gSxfosObHRy0uwY4vnedsI3Lko8-3rZi/exec';
 
 interface CollectionData {
   email?: string;
