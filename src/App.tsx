@@ -1738,6 +1738,29 @@ export default function App() {
 
   const CourseScreen = () => {
     const [expandedModule, setExpandedModule] = useState<number | null>(0);
+    const [activeLesson, setActiveLesson] = useState<{ moduleIdx: number; lessonIdx: number; type: 'lesson' | 'quiz' } | null>(null);
+    const [completedLessons, setCompletedLessons] = useState<string[]>(() => {
+      try { return JSON.parse(localStorage.getItem(`progress_${selectedCourse?.id}`) || '[]'); } catch { return []; }
+    });
+
+    const markComplete = (key: string) => {
+      if (!completedLessons.includes(key)) {
+        const updated = [...completedLessons, key];
+        setCompletedLessons(updated);
+        if (selectedCourse) localStorage.setItem(`progress_${selectedCourse.id}`, JSON.stringify(updated));
+      }
+    };
+
+    const totalItems = selectedCourse ? selectedCourse.modules.reduce((acc: number, m: any) => acc + m.lessons + m.quizzes, 0) : 0;
+    const progressPercent = totalItems > 0 ? Math.round((completedLessons.length / totalItems) * 100) : 0;
+
+    // Build flat list of all lessons/quizzes for prev/next navigation
+    const allItems = selectedCourse ? selectedCourse.modules.flatMap((mod: any, mIdx: number) => [
+      ...Array.from({ length: mod.lessons }, (_, i) => ({ moduleIdx: mIdx, lessonIdx: i, type: 'lesson' as const, title: `Lesson ${i + 1}`, moduleTitle: mod.title })),
+      ...Array.from({ length: mod.quizzes }, (_, i) => ({ moduleIdx: mIdx, lessonIdx: i, type: 'quiz' as const, title: `Quiz ${i + 1}`, moduleTitle: mod.title })),
+    ]) : [];
+
+    const activeItemIndex = activeLesson ? allItems.findIndex(item => item.moduleIdx === activeLesson.moduleIdx && item.lessonIdx === activeLesson.lessonIdx && item.type === activeLesson.type) : -1;
 
     if (!selectedCourse) {
       return (
@@ -1750,6 +1773,170 @@ export default function App() {
       );
     }
 
+    // --- Active Lesson View ---
+    if (activeLesson) {
+      const mod = selectedCourse.modules[activeLesson.moduleIdx];
+      const lessonKey = `${activeLesson.moduleIdx}-${activeLesson.type}-${activeLesson.lessonIdx}`;
+      const isComplete = completedLessons.includes(lessonKey);
+      const currentItem = allItems[activeItemIndex];
+      const prevItem = activeItemIndex > 0 ? allItems[activeItemIndex - 1] : null;
+      const nextItem = activeItemIndex < allItems.length - 1 ? allItems[activeItemIndex + 1] : null;
+
+      return (
+        <div className="min-h-screen bg-slate-50 pt-24 pb-16">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Top nav */}
+            <button
+              onClick={() => setActiveLesson(null)}
+              className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 mb-6 transition-colors"
+            >
+              <ChevronRight className="w-4 h-4 rotate-180" />
+              Back to Course Overview
+            </button>
+
+            {/* Progress bar */}
+            <div className="mb-6">
+              <div className="flex justify-between items-center mb-2">
+                <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Course Progress</span>
+                <span className="text-xs font-bold text-blue-600">{progressPercent}%</span>
+              </div>
+              <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+                <div className="h-full bg-blue-600 rounded-full transition-all duration-500" style={{ width: `${progressPercent}%` }} />
+              </div>
+            </div>
+
+            {/* Lesson content card */}
+            <div className="bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden">
+              {/* Video placeholder */}
+              <div className="bg-gradient-to-br from-slate-900 to-slate-800 aspect-video flex items-center justify-center relative">
+                <div className="text-center">
+                  <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 border border-white/20">
+                    <PlayCircle className="w-10 h-10 text-white" />
+                  </div>
+                  <p className="text-white/60 text-sm font-medium">Video content coming soon</p>
+                </div>
+                <div className="absolute top-4 left-4 flex items-center gap-2">
+                  <span className="bg-white/10 backdrop-blur-sm text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    Module {activeLesson.moduleIdx + 1}
+                  </span>
+                  <span className="bg-blue-500/80 backdrop-blur-sm text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                    {activeLesson.type === 'lesson' ? `Lesson ${activeLesson.lessonIdx + 1}` : `Quiz ${activeLesson.lessonIdx + 1}`}
+                  </span>
+                </div>
+              </div>
+
+              {/* Lesson details */}
+              <div className="p-8">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{mod.title}</span>
+                </div>
+                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                  {activeLesson.type === 'lesson' ? `Lesson ${activeLesson.lessonIdx + 1}` : `Quiz ${activeLesson.lessonIdx + 1}`}
+                </h2>
+
+                {activeLesson.type === 'lesson' ? (
+                  <div className="prose prose-slate max-w-none">
+                    <div className="bg-blue-50 rounded-2xl p-6 mb-6">
+                      <h3 className="text-base font-bold text-blue-900 mb-3 flex items-center gap-2">
+                        <BookOpen className="w-5 h-5" />
+                        Learning Objectives
+                      </h3>
+                      <ul className="space-y-2 text-sm text-blue-800">
+                        <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />Understand key concepts and frameworks covered in this lesson</li>
+                        <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />Apply practical techniques to real-world scenarios</li>
+                        <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />Build hands-on skills you can use immediately</li>
+                      </ul>
+                    </div>
+                    <div className="bg-slate-50 rounded-2xl p-6 mb-6">
+                      <p className="text-slate-600 text-sm leading-relaxed mb-4">{mod.description}</p>
+                      <p className="text-slate-500 text-sm leading-relaxed">Full lesson content including detailed explanations, examples, code samples, and interactive exercises will be available here. Stay tuned for updates!</p>
+                    </div>
+                    <div className="bg-amber-50 rounded-2xl p-6">
+                      <h3 className="text-base font-bold text-amber-900 mb-2 flex items-center gap-2">
+                        <Zap className="w-5 h-5" />
+                        Key Takeaway
+                      </h3>
+                      <p className="text-sm text-amber-800 leading-relaxed">
+                        This lesson is part of the "{mod.title}" module. Complete all lessons and quizzes to unlock your certification.
+                      </p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    <div className="bg-amber-50 rounded-2xl p-6">
+                      <h3 className="text-base font-bold text-amber-900 mb-3 flex items-center gap-2">
+                        <Star className="w-5 h-5" />
+                        Knowledge Check
+                      </h3>
+                      <p className="text-sm text-amber-800 leading-relaxed">
+                        This quiz will test your understanding of the concepts covered in the "{mod.title}" module. Interactive quiz questions are coming soon.
+                      </p>
+                    </div>
+                    <div className="space-y-4">
+                      {[1, 2, 3].map((q) => (
+                        <div key={q} className="bg-slate-50 rounded-2xl p-6">
+                          <p className="text-sm font-bold text-slate-700 mb-3">Question {q}</p>
+                          <div className="space-y-2">
+                            {['A', 'B', 'C', 'D'].map((opt) => (
+                              <div key={opt} className="flex items-center gap-3 p-3 rounded-xl bg-white border border-slate-200 hover:border-blue-300 cursor-pointer transition-colors">
+                                <div className="w-6 h-6 rounded-full border-2 border-slate-300 flex items-center justify-center text-[10px] font-bold text-slate-400">{opt}</div>
+                                <span className="text-sm text-slate-500">Answer option placeholder</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Mark complete + navigation */}
+                <div className="mt-8 pt-6 border-t border-slate-100">
+                  <button
+                    onClick={() => markComplete(lessonKey)}
+                    className={`w-full py-4 rounded-2xl font-bold text-sm transition-all mb-6 ${isComplete ? 'bg-green-100 text-green-700 cursor-default' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-100'}`}
+                    disabled={isComplete}
+                  >
+                    {isComplete ? '✓ Completed' : `Mark as Complete`}
+                  </button>
+
+                  <div className="flex justify-between items-center">
+                    {prevItem ? (
+                      <button
+                        onClick={() => setActiveLesson({ moduleIdx: prevItem.moduleIdx, lessonIdx: prevItem.lessonIdx, type: prevItem.type })}
+                        className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors"
+                      >
+                        <ChevronRight className="w-4 h-4 rotate-180" />
+                        Previous: {prevItem.title}
+                      </button>
+                    ) : <div />}
+                    {nextItem ? (
+                      <button
+                        onClick={() => setActiveLesson({ moduleIdx: nextItem.moduleIdx, lessonIdx: nextItem.lessonIdx, type: nextItem.type })}
+                        className="flex items-center gap-2 text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors"
+                      >
+                        Next: {nextItem.title}
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => setActiveLesson(null)}
+                        className="flex items-center gap-2 text-sm font-medium text-green-600 hover:text-green-700 transition-colors"
+                      >
+                        Finish Course Overview
+                        <CheckCircle2 className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // --- Course Overview ---
     return (
       <div className="min-h-screen bg-slate-50 pt-24 pb-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1794,7 +1981,7 @@ export default function App() {
                   <BrainCircuit className="w-7 h-7 text-blue-600" />
                 </div>
                 <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Your Progress</p>
-                <p className="text-3xl font-black text-slate-900">0%</p>
+                <p className="text-3xl font-black text-slate-900">{progressPercent}%</p>
               </div>
             </div>
           </div>
@@ -1833,20 +2020,44 @@ export default function App() {
                         <div className="px-6 pb-6 border-t border-slate-100">
                           <p className="text-sm text-slate-600 leading-relaxed mt-4 mb-5">{mod.description}</p>
                           <div className="space-y-2">
-                            {Array.from({ length: mod.lessons }, (_, i) => (
-                              <div key={`lesson-${i}`} className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
-                                <PlayCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                                <span className="text-sm font-medium text-slate-700">Lesson {i + 1}</span>
-                                <span className="text-[10px] font-bold text-slate-300 uppercase tracking-wider ml-auto">Coming Soon</span>
-                              </div>
-                            ))}
-                            {Array.from({ length: mod.quizzes }, (_, i) => (
-                              <div key={`quiz-${i}`} className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
-                                <CheckCircle2 className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                                <span className="text-sm font-medium text-slate-700">Quiz {i + 1}</span>
-                                <span className="text-[10px] font-bold text-slate-300 uppercase tracking-wider ml-auto">Coming Soon</span>
-                              </div>
-                            ))}
+                            {Array.from({ length: mod.lessons }, (_, i) => {
+                              const key = `${idx}-lesson-${i}`;
+                              const done = completedLessons.includes(key);
+                              return (
+                                <div
+                                  key={`lesson-${i}`}
+                                  onClick={() => setActiveLesson({ moduleIdx: idx, lessonIdx: i, type: 'lesson' })}
+                                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-blue-50 transition-colors cursor-pointer group"
+                                >
+                                  {done ? (
+                                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                                  ) : (
+                                    <PlayCircle className="w-5 h-5 text-blue-500 flex-shrink-0 group-hover:text-blue-600" />
+                                  )}
+                                  <span className={`text-sm font-medium ${done ? 'text-green-700' : 'text-slate-700 group-hover:text-blue-700'}`}>Lesson {i + 1}</span>
+                                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-blue-500 ml-auto transition-colors" />
+                                </div>
+                              );
+                            })}
+                            {Array.from({ length: mod.quizzes }, (_, i) => {
+                              const key = `${idx}-quiz-${i}`;
+                              const done = completedLessons.includes(key);
+                              return (
+                                <div
+                                  key={`quiz-${i}`}
+                                  onClick={() => setActiveLesson({ moduleIdx: idx, lessonIdx: i, type: 'quiz' })}
+                                  className="flex items-center gap-3 p-3 rounded-xl hover:bg-amber-50 transition-colors cursor-pointer group"
+                                >
+                                  {done ? (
+                                    <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+                                  ) : (
+                                    <Star className="w-5 h-5 text-amber-500 flex-shrink-0 group-hover:text-amber-600" />
+                                  )}
+                                  <span className={`text-sm font-medium ${done ? 'text-green-700' : 'text-slate-700 group-hover:text-amber-700'}`}>Quiz {i + 1}</span>
+                                  <ArrowRight className="w-4 h-4 text-slate-300 group-hover:text-amber-500 ml-auto transition-colors" />
+                                </div>
+                              );
+                            })}
                           </div>
                         </div>
                       </motion.div>
