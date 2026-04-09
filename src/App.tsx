@@ -35,7 +35,7 @@ import { collectData, sendReportViaAppsScript } from './dataCollection';
 
 // --- Types & Constants ---
 
-type Screen = 'landing' | 'segmentation' | 'assessment' | 'results' | 'catalog' | 'tos' | 'privacy' | 'auth';
+type Screen = 'landing' | 'segmentation' | 'assessment' | 'results' | 'catalog' | 'course' | 'tos' | 'privacy' | 'auth';
 
 const ROLES = ['CEO', 'Sales', 'Operations', 'Marketing', 'HR', 'Finance', 'Engineering', 'Customer Success'];
 const INDUSTRIES = ['Telecom', 'SaaS', 'E-commerce', 'Services', 'Healthcare', 'Fintech', 'Manufacturing', 'Real Estate', 'EdTech'];
@@ -1712,7 +1712,14 @@ export default function App() {
                       Preview Syllabus
                     </button>
                     <button
-                      onClick={() => handleEnroll(course)}
+                      onClick={() => {
+                        if (enrolledCourses.includes(course.id)) {
+                          setSelectedCourse(course);
+                          setScreen('course');
+                        } else {
+                          handleEnroll(course);
+                        }
+                      }}
                       className={`w-full py-4 rounded-xl font-bold text-sm transition-all shadow-lg ${enrolledCourses.includes(course.id) ? 'bg-green-600 text-white hover:bg-green-700 shadow-green-100' : 'bg-blue-600 text-white hover:bg-blue-700 shadow-blue-100'}`}
                     >
                       {enrolledCourses.includes(course.id) ? '✓ Access Course' : course.price === 0 ? 'Enroll Free' : 'Enroll Now'}
@@ -1721,6 +1728,139 @@ export default function App() {
                 </motion.div>
               );
             })}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  // --- Course Content Screen ---
+
+  const CourseScreen = () => {
+    const [expandedModule, setExpandedModule] = useState<number | null>(0);
+
+    if (!selectedCourse) {
+      return (
+        <div className="min-h-screen bg-slate-50 pt-24 pb-16 flex items-center justify-center">
+          <div className="text-center">
+            <p className="text-slate-500 mb-4">No course selected.</p>
+            <button onClick={() => setScreen('catalog')} className="text-blue-600 font-bold hover:underline">Browse Courses</button>
+          </div>
+        </div>
+      );
+    }
+
+    return (
+      <div className="min-h-screen bg-slate-50 pt-24 pb-16">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Back button */}
+          <button
+            onClick={() => setScreen('catalog')}
+            className="flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-900 mb-8 transition-colors"
+          >
+            <ChevronRight className="w-4 h-4 rotate-180" />
+            Back to Catalog
+          </button>
+
+          {/* Course header */}
+          <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-slate-100 mb-8">
+            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">{selectedCourse.category}</span>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${selectedCourse.level === 'Beginner' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'}`}>
+                    {selectedCourse.level}
+                  </span>
+                </div>
+                <h1 className="text-3xl font-bold text-slate-900 mb-3">{selectedCourse.title}</h1>
+                <p className="text-slate-600 leading-relaxed mb-6">{selectedCourse.description}</p>
+                <div className="flex items-center gap-6 text-sm text-slate-500">
+                  <span className="flex items-center gap-1.5">
+                    <BookOpen className="w-4 h-4" />
+                    {selectedCourse.modules.reduce((acc: number, m: any) => acc + m.lessons, 0)} Lessons
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Star className="w-4 h-4" />
+                    {selectedCourse.modules.reduce((acc: number, m: any) => acc + m.quizzes, 0)} Quizzes
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-green-500" />
+                    Enrolled
+                  </span>
+                </div>
+              </div>
+              <div className="bg-blue-50 rounded-2xl p-6 text-center md:min-w-[180px]">
+                <div className="bg-blue-100 w-14 h-14 rounded-xl flex items-center justify-center mx-auto mb-3">
+                  <BrainCircuit className="w-7 h-7 text-blue-600" />
+                </div>
+                <p className="text-xs font-bold text-blue-600 uppercase tracking-wider mb-1">Your Progress</p>
+                <p className="text-3xl font-black text-slate-900">0%</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Modules */}
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold text-slate-900 mb-2">Course Content</h2>
+            {selectedCourse.modules.map((mod: any, idx: number) => {
+              const isExpanded = expandedModule === idx;
+              return (
+                <div key={idx} className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                  <button
+                    onClick={() => setExpandedModule(isExpanded ? null : idx)}
+                    className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 transition-colors"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-sm font-bold text-blue-600 flex-shrink-0">
+                        {idx + 1}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-slate-900">{mod.title}</h3>
+                        <p className="text-xs text-slate-400 mt-0.5">{mod.lessons} Lessons · {mod.quizzes} Quizzes</p>
+                      </div>
+                    </div>
+                    <ChevronRight className={`w-5 h-5 text-slate-400 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-6 pb-6 border-t border-slate-100">
+                          <p className="text-sm text-slate-600 leading-relaxed mt-4 mb-5">{mod.description}</p>
+                          <div className="space-y-2">
+                            {Array.from({ length: mod.lessons }, (_, i) => (
+                              <div key={`lesson-${i}`} className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+                                <PlayCircle className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                                <span className="text-sm font-medium text-slate-700">Lesson {i + 1}</span>
+                                <span className="text-[10px] font-bold text-slate-300 uppercase tracking-wider ml-auto">Coming Soon</span>
+                              </div>
+                            ))}
+                            {Array.from({ length: mod.quizzes }, (_, i) => (
+                              <div key={`quiz-${i}`} className="flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
+                                <CheckCircle2 className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                                <span className="text-sm font-medium text-slate-700">Quiz {i + 1}</span>
+                                <span className="text-[10px] font-bold text-slate-300 uppercase tracking-wider ml-auto">Coming Soon</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Final Assessment note */}
+          <div className="mt-8 p-5 bg-amber-50 rounded-2xl border border-amber-100 flex items-center gap-3">
+            <Star className="w-5 h-5 text-amber-500 flex-shrink-0" />
+            <span className="text-sm font-bold text-amber-800">Final Assessment Required for Certification</span>
           </div>
         </div>
       </div>
@@ -1989,6 +2129,7 @@ export default function App() {
           {screen === 'assessment' && <motion.div key="assessment" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><AssessmentScreen /></motion.div>}
           {screen === 'results' && <motion.div key="results" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><ResultsScreen /></motion.div>}
           {screen === 'catalog' && <motion.div key="catalog" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><CatalogScreen /></motion.div>}
+          {screen === 'course' && <motion.div key="course" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><CourseScreen /></motion.div>}
           {screen === 'tos' && <motion.div key="tos" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><TosScreen /></motion.div>}
           {screen === 'privacy' && <motion.div key="privacy" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}><PrivacyScreen /></motion.div>}
         </AnimatePresence>
@@ -2097,7 +2238,7 @@ export default function App() {
                   : 'Welcome to ToasterAI. Check your email for access details.'}
               </p>
               <button
-                onClick={() => { setIsCheckoutOpen(false); setCheckoutState('idle'); }}
+                onClick={() => { setIsCheckoutOpen(false); setCheckoutState('idle'); setScreen('course'); }}
                 className="bg-blue-600 text-white px-8 py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition-all"
               >
                 Start Learning
