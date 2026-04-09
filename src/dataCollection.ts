@@ -2,7 +2,7 @@
 // Google Apps Script handles BOTH data collection AND email sending.
 //
 // Update your Apps Script (Extensions > Apps Script) with the
-// code shown in APPS_SCRIPT_CODE.md, then redeploy.
+// code shown in APPS_SCRIPT_CODE.js, then redeploy.
 // ============================================================
 const GOOGLE_SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbxbNxWEj_JXG6jyeN69mO2_hv-VM_bQSOK0gSxfosObHRy0uwY4vnedsI3Lko8-3rZi/exec';
 
@@ -14,9 +14,9 @@ interface CollectionData {
   score?: number;
   classification?: string;
   revenueLeak?: number;
-  source: string; // e.g., 'diagnostic_complete', 'report_request', 'enrollment'
+  source: string;
   userId?: string;
-  sendEmail?: boolean; // If true, Apps Script will also send a report email
+  sendEmail?: boolean;
 }
 
 export async function collectData(data: CollectionData): Promise<boolean> {
@@ -26,35 +26,31 @@ export async function collectData(data: CollectionData): Promise<boolean> {
   }
 
   try {
-    // Use no-cors as fallback — Apps Script redirects POST to GET,
-    // which can break response parsing. The request still goes through.
+    // Try standard fetch first — if Apps Script returns proper CORS headers, we can read the response
     const response = await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
       method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(data),
+      redirect: 'follow',
     });
-    try {
-      const result = await response.json();
-      console.log('[Data Collection] Response:', result);
-      return result?.status === 'ok';
-    } catch {
-      // If we can't parse JSON (e.g. CORS redirect), assume success
-      // if the request didn't throw
-      console.log('[Data Collection] Request sent (no parseable response)');
-      return true;
-    }
-  } catch (error) {
-    console.error('Data collection failed:', error);
-    // Try again with no-cors mode as last resort
+    const result = await response.json();
+    console.log('[Data Collection] Response:', result);
+    return result?.status === 'ok';
+  } catch {
+    // Apps Script redirects POST → GET which causes CORS issues.
+    // Fallback: use no-cors mode. The request still reaches the server
+    // but we get an opaque response (can't read it). Assume success.
     try {
       await fetch(GOOGLE_SHEET_WEBHOOK_URL, {
         method: 'POST',
         mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(data),
       });
       console.log('[Data Collection] Sent via no-cors fallback');
       return true;
-    } catch (fallbackError) {
-      console.error('Data collection fallback also failed:', fallbackError);
+    } catch (error) {
+      console.error('[Data Collection] All attempts failed:', error);
       return false;
     }
   }
